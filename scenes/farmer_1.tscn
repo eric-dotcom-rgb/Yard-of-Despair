@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://der5tgkvsthpg"]
 
+[ext_resource type="Script" uid="uid://dohwlhpjynw3a" path="res://scenes/farmer_1.gd" id="1_dxly4"]
 [ext_resource type="Texture2D" uid="uid://bnsluafs1nyxu" path="res://assets/farmer 1/farmer 1 sheet.png" id="1_mfmrv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_76q2l"]
 radius = 7.0
-height = 14.0
+height = 20.0
 
 [sub_resource type="Animation" id="Animation_dxly4"]
 length = 0.001
@@ -88,6 +89,7 @@ transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition
 graph_offset = Vector2(0, 49)
 
 [node name="farmer 1" type="CharacterBody2D" unique_id=1199821878]
+script = ExtResource("1_dxly4")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2063804963]
 position = Vector2(0, -15)
@@ -96,6 +98,7 @@ hframes = 2
 vframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2063405186]
+position = Vector2(0, -5)
 shape = SubResource("CapsuleShape2D_76q2l")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1807589632]
@@ -104,3 +107,20 @@ libraries/ = SubResource("AnimationLibrary_yfgjf")
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=127506097]
 tree_root = SubResource("AnimationNodeStateMachine_76q2l")
 anim_player = NodePath("../AnimationPlayer")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1991905917]
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=828323468]
+offset_left = 8.0
+offset_top = -45.0
+offset_right = 61.0
+offset_bottom = -26.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="NinePatchRect" unique_id=218770787]
+layout_mode = 0
+offset_left = 1.0
+offset_top = -59.0
+offset_right = 314.0
+offset_bottom = 33.0
+text = "Hi there! I'm John, I'm 76 years old and live in this beautiful farmland since my birth...are you new here? You seem...out of space..."
+fit_content = true
