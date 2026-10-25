@@ -147,6 +147,12 @@ Github: https://github.com/eric-dotcom-rgb/
 Terra: noobatcoding
 Slack: noobatcoding
 
+# Code
+
+I used Godot engine to create the game and used languages like GDScript, Godot 
+Resource and Markdown for writing the readme on VSCode. I also used Lapse to record
+my drawings.
+
 # !!warning!!
 
 This game is still in development. It is NOT the finished product.

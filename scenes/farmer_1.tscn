@@ -124,3 +124,5 @@ offset_right = 314.0
 offset_bottom = 33.0
 text = "Hi there! I'm John, I'm 76 years old and live in this beautiful farmland since my birth...are you new here? You seem...out of space..."
 fit_content = true
+visible_characters = 0
+visible_ratio = 0.0
