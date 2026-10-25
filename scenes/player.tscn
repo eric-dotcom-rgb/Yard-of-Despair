@@ -165,7 +165,6 @@ position = Vector2(0, -14)
 texture = ExtResource("2_g2els")
 hframes = 8
 vframes = 4
-frame = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1023928066]
 shape = SubResource("CircleShape2D_05sxq")
