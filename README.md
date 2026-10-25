@@ -28,8 +28,35 @@ Keys for movement:
 	A - going left
 	D - giong right
 Keys for farming (in development):
-	left-click mouse: farm land
+	left-click mouse: farm land 
+		if pressed with the pointer on left side: farm left
+		if pressed with the pointer on right side: farm right
 	extraction tool - ...next
+
+# Characteristics - Code
+
+Week 1:
+For player:
+I've done the code for the speed of the player and the various animations.
+I made functions and variables about the state of the player so I could control 
+what animation to play, when and for how much time. I made the animation tree log
+on whenever the game starts so it would display all the animations. The player idles 
+when nothing is pressed, plays the walk animation whenever the d, w or s keys
+are pressed adn it rotates the h whenever the a key is pressed (from right to
+left). Depending on where the left click of the mouse is pressed, it plays the
+farm anbimation on the right. If the mouse pointer is on the left, it reverses the h 
+of the frames so it farms on the left. You can farm both when you're walking or when
+you're idling. Whenever the animation of farm is played, the walking and the idling 
+are stopped so the farm animation doesn't bug.
+For world:
+I added some grass blocks and some border blocks to start with. I made the border 
+blocks so they could actually stop the player from exiting the map, adding the collision 
+square where there is the grey part (the wall of the map). 
+For farmer 1:
+I made him start idling whenever the game stats and layed the tree so next week I can 
+start coding the talking part right away. Maybe I'll add some more animations like
+for anger or something else so like when you try to give/sell him a crop that's not 
+accepted he'll do that animation, or something like that.
 
 # Characteristics - Animations
 
@@ -39,6 +66,10 @@ spritesheet all by myself, which includes the idling, the walk, the
 extraction tool(in development) and the farming action. I also made
 an initial spritesheet for a farmer, but I preferred to concentrate on the
 player this week, as it's the most important thing to do in the game.
+Update:
+I also added the farmer and its animations of idling and talking and
+made the initial tree with the idling.Next week I'm giong to adress also the
+talking when it will talk its story/missions(I'll see what to do).
 
 # Characteristics - Pixel Art
 
@@ -81,6 +112,7 @@ I made the borders for the map, which incude:
 	-corner border right up block
 	-corner border left down block
 	-corner border right down block
+I made the desktop icon for the game(icon game.png)
 
 # How to run - Requisites
 
@@ -98,7 +130,7 @@ Option 1: With game engine
 
 Option 2: Download the .exe
 1. Go to releases on Github
-2. Download the .exe file
+2. Download the Yard of Despair.exe file
 3. Run it on your pc!
 
 !- it is a game in progress, so don't expect it to be perfect, neither complete 
