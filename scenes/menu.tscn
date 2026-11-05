@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://dqljcfph48jkx"]
+
+[ext_resource type="Script" uid="uid://bp54vrj0nsqmj" path="res://scripts/menu.gd" id="1_yqeox"]
+
+[node name="menu" type="CanvasLayer" unique_id=1358384024]
+process_mode = 3
+script = ExtResource("1_yqeox")
+
+[node name="bg" type="ColorRect" parent="." unique_id=1405542615]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.24313726, 0.15686275, 0, 0.9372549)
+
+[node name="centercontainer" type="CenterContainer" parent="." unique_id=409238159]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 853.0
+offset_top = 484.0
+offset_right = -932.0
+offset_bottom = -403.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="menu buttons" type="VBoxContainer" parent="centercontainer" unique_id=575777957]
+layout_mode = 2
+theme_override_constants/separation = 20
+accessibility_region = true
+alignment = 1
+
+[node name="resume" type="Button" parent="centercontainer/menu buttons" unique_id=1908862435]
+custom_minimum_size = Vector2(400, 160)
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "RESUME"
+
+[node name="new game" type="Button" parent="centercontainer/menu buttons" unique_id=1191269827]
+custom_minimum_size = Vector2(400, 160)
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "NEW GAME"
+
+[node name="exit" type="Button" parent="centercontainer/menu buttons" unique_id=1209511454]
+custom_minimum_size = Vector2(400, 160)
+layout_mode = 2
+theme_override_font_sizes/font_size = 70
+text = "EXIT"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=258268512]
+oversampling_override = 1.0
+title = "EXIT"
+initial_position = 2
+size = Vector2i(370, 170)
+ok_button_text = "...Yes"
+dialog_text = "...are you sure to close Yard of Despair ?"
+cancel_button_text = "No :)"

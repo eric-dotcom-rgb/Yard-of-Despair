@@ -1,0 +1,178 @@
+[gd_scene format=3 uid="uid://6kscqys377kg"]
+
+[ext_resource type="Texture2D" uid="uid://bf7wdidasyuaa" path="res://assets/frog/frog spritesheet.png" id="1_mqod6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_76q2l"]
+radius = 5.0
+
+[sub_resource type="Animation" id="Animation_mqod6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FrogSpritesheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_qyo2l"]
+resource_name = "breath"
+length = 6.0
+step = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FrogSpritesheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 3, 3.5, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10, 11, 12, 13]
+}
+
+[sub_resource type="Animation" id="Animation_rq8tc"]
+resource_name = "idle"
+length = 2.0
+step = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("FrogSpritesheet:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1g2vb"]
+_data = {
+&"RESET": SubResource("Animation_mqod6"),
+&"breath": SubResource("Animation_qyo2l"),
+&"idle": SubResource("Animation_rq8tc")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ybftx"]
+animation = &"breath"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4ifle"]
+animation = &"breath"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uu7fg"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ycnbg"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_eqhdc"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4au2m"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wiiuq"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p8yr8"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mokc4"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4pjqi"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2aq02"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1j5sl"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_blvm1"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jg4rb"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ymnba"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f47h2"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wyyg8"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4j6kb"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_blxar"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r6508"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wyg7h"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_65pfw"]
+states/End/position = Vector2(1172, 100)
+states/breath/node = SubResource("AnimationNodeAnimation_4ifle")
+states/breath/position = Vector2(810, 161)
+"states/breath 2/node" = SubResource("AnimationNodeAnimation_ybftx")
+"states/breath 2/position" = Vector2(474, 161)
+states/idle/node = SubResource("AnimationNodeAnimation_4pjqi")
+states/idle/position = Vector2(358, 57)
+"states/idle 2/node" = SubResource("AnimationNodeAnimation_uu7fg")
+"states/idle 2/position" = Vector2(474, 57)
+"states/idle 3/node" = SubResource("AnimationNodeAnimation_ycnbg")
+"states/idle 3/position" = Vector2(584, 57)
+"states/idle 4/node" = SubResource("AnimationNodeAnimation_eqhdc")
+"states/idle 4/position" = Vector2(697, 57)
+"states/idle 5/node" = SubResource("AnimationNodeAnimation_4au2m")
+"states/idle 5/position" = Vector2(810, 57)
+"states/idle 6/node" = SubResource("AnimationNodeAnimation_wiiuq")
+"states/idle 6/position" = Vector2(697, 161)
+"states/idle 7/node" = SubResource("AnimationNodeAnimation_p8yr8")
+"states/idle 7/position" = Vector2(589, 161)
+"states/idle 8/node" = SubResource("AnimationNodeAnimation_mokc4")
+"states/idle 8/position" = Vector2(358, 161)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_2aq02"), "idle 8", "idle", SubResource("AnimationNodeStateMachineTransition_1j5sl"), "idle", "idle 2", SubResource("AnimationNodeStateMachineTransition_blvm1"), "idle 2", "idle 3", SubResource("AnimationNodeStateMachineTransition_jg4rb"), "idle 3", "idle 4", SubResource("AnimationNodeStateMachineTransition_ymnba"), "idle 4", "idle 5", SubResource("AnimationNodeStateMachineTransition_f47h2"), "idle 5", "breath", SubResource("AnimationNodeStateMachineTransition_wyyg8"), "breath", "idle 6", SubResource("AnimationNodeStateMachineTransition_4j6kb"), "idle 6", "idle 7", SubResource("AnimationNodeStateMachineTransition_blxar"), "idle 7", "breath 2", SubResource("AnimationNodeStateMachineTransition_r6508"), "breath 2", "idle 8", SubResource("AnimationNodeStateMachineTransition_wyg7h")]
+
+[node name="frog" type="CharacterBody2D" unique_id=844263027]
+
+[node name="FrogSpritesheet" type="Sprite2D" parent="." unique_id=1985547819]
+position = Vector2(0, -6)
+texture = ExtResource("1_mqod6")
+hframes = 7
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1481207157]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_76q2l")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=43555592]
+libraries/ = SubResource("AnimationLibrary_1g2vb")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=407235037]
+tree_root = SubResource("AnimationNodeStateMachine_65pfw")
+anim_player = NodePath("../AnimationPlayer")

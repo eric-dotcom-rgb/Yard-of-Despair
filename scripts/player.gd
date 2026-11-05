@@ -6,8 +6,8 @@ enum State {
 	FARM
 }
 @export_category("Stats")
-@export var speed: int = 400
-@export var farm_speed: float = 0.8
+@export var speed: int = 100
+@export var farm_speed: float = 1.5
 
 var state: State = State.IDLE
 var move_direction: Vector2 = Vector2(0,0)
@@ -21,7 +21,6 @@ func _ready() -> void:           #cosi nel gioco il Tree rimane sempre acceso an
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		farm()
-		
 
 func _physics_process(_delta: float) -> void:
 	if not state == State.FARM:
@@ -62,11 +61,24 @@ func farm() -> void:
 		return
 	state = State.FARM
 	
+	velocity = Vector2.ZERO
 	var mouse_pos: Vector2 = get_global_mouse_position()
 	var farm_dir: Vector2 = (mouse_pos - global_position).normalized()
-	$Sprite2D.flip_h = farm_dir.x < 0 and abs(farm_dir.x) >= abs(farm_dir.y)
+	$Sprite2D.flip_h = farm_dir.x < 0.01 and abs(farm_dir.x) >= abs(farm_dir.y)
 	animation_tree.set("parameters/farm/BlendSpace2D/blend_position", farm_dir)
 	update_animation()
+	var world_node = get_parent()
+	var dirt_layer = world_node.get_node("tiles/dirt")
+	var _player_grid = dirt_layer.local_to_map(global_position)
+	var hit_global_position = global_position + (farm_dir * 16)
+	var target_grid = dirt_layer.local_to_map(hit_global_position)
+	var current_tile_atlas = dirt_layer.get_cell_atlas_coords(target_grid)
+	var expected_dirt_atlas = Vector2i(0,0)
+	
+	if current_tile_atlas == expected_dirt_atlas:
+		if world_node.has_method("change_tile"):
+			world_node.change_tile(target_grid, 2, Vector2i(0,0))
 	
 	await get_tree().create_timer(farm_speed).timeout
 	state = State.IDLE
+	

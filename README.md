@@ -27,11 +27,23 @@ Keys for movement:
 	S - going down
 	A - going left
 	D - giong right
-Keys for farming (in development):
+Keys for farming:
 	left-click mouse: farm land 
 		if pressed with the pointer on left side: farm left
 		if pressed with the pointer on right side: farm right
-	extraction tool - ...next
+		max a min distance from player to farm: 16px or 1 block
+Key for main menu:
+	ESC
+	In the main menu you can:
+	-Resume the game that you started before by pressing 'RESUME'
+	 (if you never played before, the game automatically leaves only the new game 
+	 button because you don't have a save file in which the player position and 
+	 the farm tiles are saved by ID)
+	-Start a new game by pressing 'NEW GAME'
+	 !!! CAUTION: This button deletes the save file, so progress will be lost !!!
+	-Exit the game by pressing 'EXIT' and either confirm the action or go back to menu
+	 !!! CAUTION: You MUST close the game by pressing on the button. If you do the classic
+	 Alt+F4 to close the game, no progress will be logged on user !!!
 
 # Characteristics - Code
 
@@ -58,6 +70,24 @@ start coding the talking part right away. Maybe I'll add some more animations li
 for anger or something else so like when you try to give/sell him a crop that's not 
 accepted he'll do that animation, or something like that.
 
+Week 2:
+Player:
+Added the logic for the function farm which tells everything about mouse positioning and
+flipping of the animation so it can determine which block to farm. It also determines
+the distance from the player of the block that can be modified. The distance is set to
+16 pixels, so 1 block in my game. You can farm up, down, left or right depending on which 
+block you press with the mouse pointer.
+Menu:
+I made a menu that can be accessed by pressing ESC and got 3 options: resume, new game and 
+exit. The resume option opens the saved file 'save_file.cfg' and adds it to the tree so the
+progress made by the user can be showed. The file is saved into 
+C:>user>AppData>Roaming>Godot>app-userdata>Yard of Despair if you download the files, or
+C:>user>AppData>Roaming>Yard of Despair if you download the executable. The new game option
+deletes the file of progress, if you have one, and starts a new game. When you will decide to
+use the exit option, it will save automatically the file once you confirm the exit by pressing
+'...Yes'. You can also press 'No :)' if you decide to play some more (in current state I doubt
+you want to XD).
+
 # Characteristics - Animations
 
 Week 1:
@@ -70,6 +100,9 @@ Update:
 I also added the farmer and its animations of idling and talking and
 made the initial tree with the idling.Next week I'm giong to adress also the
 talking when it will talk its story/missions(I'll see what to do).
+
+Week 2:
+Updated the farm animation. Made animations for frogs and all the animated tiles of water.
 
 # Characteristics - Pixel Art
 
@@ -114,6 +147,40 @@ I made the borders for the map, which incude:
 	-corner border right down block
 I made the desktop icon for the game(icon game.png)
 
+Week 2:
+Map:
+NEW MAP DROPPED! In this map you get YOUR OWN FARMING SOIL! The map now is more like an
+island shape because it is an isolated place(kid is grounded, couldn't be any worse), and it got
+some nice lakes and borders. Corner borders tiles got an update last week so I made hitboxer for
+the new tiles.
+Sprites:
+I made some spritesheets for some frogs I added.
+	-frog breath spritesheet.png
+	-frog idle spritesheet.png
+Pixel art:
+I made the tiles for water with various options to choose, some trees, a house, and some grass tiles
+for upcoming elevated ground.
+	-player house.png
+	-apple tree.png
+	-flower tree.png
+	-tree.png
+	-grass elevated w flowers.png
+	-grass elevated w flowers and rocks.png
+	-grass corner right down.png
+	-grass corner left down.png
+	-grass corner center down.png
+I made animated tiles for water and sky and some more art
+	-water corner left up animated.png
+	-water corner left down animated.png
+	-water corner right up animated.png
+	-water corner right down animated.png
+	-water center animated.png
+	-tree golden.png
+	-sky spritesheet.png
+	-sky road var1 spritesheet.png
+	-sky road var2 spritesheet.png
+	-sky gate.png
+
 # How to run - Requisites
 
 - Download the Godot Engine v4.x so it can run the script and run the game 
@@ -129,12 +196,12 @@ Option 1: With game engine
 4. Enjoy the game!
 
 Option 2: Download the .exe
-1. Go to releases on Github
+1. Go to releases on Gitlab
 2. Download the Yard of Despair.exe file
 3. Run it on your pc!
 
 !- it is a game in progress, so don't expect it to be perfect, neither complete 
-of the list of things I cited in the description. Follow along the Github project 
+of the list of things I cited in the description. Follow along the Gitlab project 
 to know when it's done!
 
 # Credits
@@ -143,7 +210,7 @@ Developed by: Eric Gervasi
 
 # Links
 
-Github: https://github.com/eric-dotcom-rgb/
+Gitlab: https://gitlab.com/eric-gg/yard-of-despair
 Terra: noobatcoding
 Slack: noobatcoding
 

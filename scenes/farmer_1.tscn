@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://der5tgkvsthpg"]
 
-[ext_resource type="Script" uid="uid://dohwlhpjynw3a" path="res://scenes/farmer_1.gd" id="1_dxly4"]
+[ext_resource type="Script" uid="uid://dohwlhpjynw3a" path="res://scripts/farmer_1.gd" id="1_dxly4"]
 [ext_resource type="Texture2D" uid="uid://bnsluafs1nyxu" path="res://assets/farmer 1/farmer 1 sheet.png" id="1_mfmrv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_76q2l"]
@@ -88,6 +88,8 @@ states/talk/position = Vector2(478, 198)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_b7u4j"), "idle", "talk", SubResource("AnimationNodeStateMachineTransition_fdkmd"), "talk", "idle", SubResource("AnimationNodeStateMachineTransition_ku2c3")]
 graph_offset = Vector2(0, 49)
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_76q2l"]
+
 [node name="farmer 1" type="CharacterBody2D" unique_id=1199821878]
 script = ExtResource("1_dxly4")
 
@@ -126,3 +128,10 @@ text = "Hi there! I'm John, I'm 76 years old and live in this beautiful farmland
 fit_content = true
 visible_characters = 0
 visible_ratio = 0.0
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1407485367]
+navigation_polygon = SubResource("NavigationPolygon_76q2l")
+
+[node name="NavigationLink2D" type="NavigationLink2D" parent="." unique_id=1061810293]
+position = Vector2(16, 12)
+start_position = Vector2(217, 70)

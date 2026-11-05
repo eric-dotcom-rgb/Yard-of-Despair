@@ -1,11 +1,6 @@
 extends Node2D
 
+@onready var dirt_layer: TileMapLayer = $tiles/dirt
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func change_tile(grid_coord: Vector2i, tile_source_id: int, new_atlas_coord: Vector2i):
+	dirt_layer.set_cell(grid_coord, tile_source_id, new_atlas_coord)
