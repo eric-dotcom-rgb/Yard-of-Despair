@@ -48,7 +48,10 @@ func _on_new_game_pressed() -> void:
 	get_tree().paused = false
 	is_paused = false
 	visible = false
-	get_tree().change_scene_to_file("res://scenes/world.tscn")
+	if get_tree().current_scene.name == "world":
+		get_tree().reload_current_scene()
+	else:
+		get_tree().change_scene_to_file("res://scenes/world.tscn")
 
 func _on_exit_pressed() -> void:
 	if get_tree().current_scene.name == "world":
@@ -79,6 +82,16 @@ func save_game():
 			var source_id = dirt_layer.get_cell_source_id(cell)
 			tile_saved[var_to_str(cell)] = source_id
 		config.set_value("map", "farmed_tiles", tile_saved)
+	#tile dei crop
+	var active_crops_saved = {}
+	for cell in current_scene.active_crops:
+		var data = current_scene.active_crops[cell]
+		active_crops_saved[var_to_str(cell)] = {
+			"crop_path": data["crop"].resource_path,
+			"stage": data["stage"]
+		} 
+	config.set_value("map", "planted_crops", active_crops_saved)
+	
 	config.save(SAVE_PATH)
 	print("game saved on user")
 
@@ -102,4 +115,17 @@ func load_game():
 			var cell = str_to_var(cell_str)
 			var saved_source_id = tile_saved[cell_str]
 			dirt_layer.set_cell(cell, saved_source_id, Vector2i(0,0))
+	
+	#tile dei crop
+	var crops_layer = current_scene.get_node_or_null("tiles/crops")
+	if crops_layer and current_scene.has_method("restore_crop"):
+		crops_layer.clear()
+		current_scene.active_crops.clear()
+		var active_crops_saved = config.get_value("map", "planted_crops", {})
+		for cell_str in active_crops_saved:
+			var cell: Vector2i = str_to_var(cell_str)
+			var info: Dictionary = active_crops_saved[cell_str]
+			var crop_res: CropData = load(info["crop_path"])
+			if crop_res:
+				current_scene.restore_crop(cell, crop_res, info["stage"])
 	print("game loaded!")

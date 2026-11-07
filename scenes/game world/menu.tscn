@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://dqljcfph48jkx"]
 
-[ext_resource type="Script" uid="uid://bp54vrj0nsqmj" path="res://scripts/menu.gd" id="1_yqeox"]
+[ext_resource type="Script" uid="uid://bp54vrj0nsqmj" path="res://scripts/game world/menu.gd" id="1_6fj3x"]
 
 [node name="menu" type="CanvasLayer" unique_id=1358384024]
 process_mode = 3
-script = ExtResource("1_yqeox")
+script = ExtResource("1_6fj3x")
 
 [node name="bg" type="ColorRect" parent="." unique_id=1405542615]
 offset_right = 1920.0

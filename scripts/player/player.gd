@@ -67,18 +67,33 @@ func farm() -> void:
 	$Sprite2D.flip_h = farm_dir.x < 0.01 and abs(farm_dir.x) >= abs(farm_dir.y)
 	animation_tree.set("parameters/farm/BlendSpace2D/blend_position", farm_dir)
 	update_animation()
+	
 	var world_node = get_parent()
 	var dirt_layer = world_node.get_node("tiles/dirt")
+	
 	var _player_grid = dirt_layer.local_to_map(global_position)
 	var hit_global_position = global_position + (farm_dir * 16)
 	var target_grid = dirt_layer.local_to_map(hit_global_position)
-	var current_tile_atlas = dirt_layer.get_cell_atlas_coords(target_grid)
-	var expected_dirt_atlas = Vector2i(0,0)
 	
-	if current_tile_atlas == expected_dirt_atlas:
+	var current_dirt_source = dirt_layer.get_cell_source_id(target_grid)
+	var current_dirt_atlas = dirt_layer.get_cell_atlas_coords(target_grid)
+	
+	var inventory = world_node.get_node("hud/inventory")
+	
+	var harvested = world_node.try_harvest(target_grid)
+
+	if harvested != null:
+		print("Hai raccolto: ", harvested.crop_name)
+		
+	elif current_dirt_source == 2:
+		var selected_crop = inventory.get_selected_crop()
+		if selected_crop != null:
+			world_node.plant_crop(target_grid, selected_crop)
+			
+	elif current_dirt_atlas == Vector2i(0,0):
 		if world_node.has_method("change_tile"):
 			world_node.change_tile(target_grid, 2, Vector2i(0,0))
-	
+		
 	await get_tree().create_timer(farm_speed).timeout
 	state = State.IDLE
 	
