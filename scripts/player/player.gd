@@ -3,11 +3,13 @@ extends CharacterBody2D
 enum State {
 	IDLE,
 	WALK,
-	FARM
+	FARM,
+	SEED
 }
 @export_category("Stats")
 @export var speed: int = 100
 @export var farm_speed: float = 1.5
+var seed_speed: float = 2.7
 
 var state: State = State.IDLE
 var move_direction: Vector2 = Vector2(0,0)
@@ -25,7 +27,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		pick_up()
 
 func _physics_process(_delta: float) -> void:
-	if not state == State.FARM:
+	if not state == State.FARM and not state ==State.SEED:
 		movement_loop()
 
 func movement_loop() -> void:
@@ -57,6 +59,8 @@ func update_animation() -> void:
 			animation_playback.travel("walk")
 		State.FARM:
 			animation_playback.travel("farm")
+		State.SEED:
+			animation_playback.travel("seed")
 			
 func _get_target_grid() -> Array:
 	var mouse_pos: Vector2 = get_global_mouse_position()
@@ -112,6 +116,7 @@ func pick_up() -> void:
 		
 	var target_info = _get_target_grid()
 	var target_grid: Vector2i = target_info[0]
+	var seed_dir: Vector2 = target_info[1]
 	var dirt_layer: TileMapLayer = target_info[2]
 	
 	var world_node = get_parent()
@@ -129,5 +134,14 @@ func pick_up() -> void:
 	if current_dirt_source == 2 and not world_node.active_crops.has(target_grid):
 		var selected_crop = hotbar.get_selected_crop()
 		if selected_crop != null:
+			state = State.SEED
+			velocity = Vector2.ZERO
+			$Sprite2D.flip_h = seed_dir.x < 0.01 and abs(seed_dir.x) >= abs(seed_dir.y)
+			animation_tree.set("parameters/seed/BlendSpace2D/blend_position", seed_dir)
+			update_animation()
+			
 			world_node.plant_crop(target_grid, selected_crop)
 			hotbar.consume_seed(selected_crop)
+			
+			await get_tree().create_timer(seed_speed).timeout
+			state = State.IDLE

@@ -62,6 +62,23 @@ tracks/0/keys = {
 "values": [0, 1, 2, 3, 4]
 }
 
+[sub_resource type="Animation" id="Animation_dovo2"]
+resource_name = "seed"
+length = 2.5714285
+step = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5714286, 1.1428572, 1.7142857, 2.2857144),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [32, 33, 34, 35, 36]
+}
+
 [sub_resource type="Animation" id="Animation_qlg0r"]
 resource_name = "walk"
 length = 0.85714287
@@ -86,6 +103,7 @@ _data = {
 &"farm_down": SubResource("Animation_g2els"),
 &"farm_right": SubResource("Animation_tuyoq"),
 &"idle": SubResource("Animation_dqkch"),
+&"seed": SubResource("Animation_dovo2"),
 &"walk": SubResource("Animation_qlg0r")
 }
 
@@ -119,7 +137,7 @@ blend_point_3/name = &"farm_right 4"
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_3v2ag"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_jej6c"]
-graph_offset = Vector2(-441, 103)
+graph_offset = Vector2(-258.2736, 56.805305)
 nodes/output/position = Vector2(440, 220)
 nodes/BlendSpace2D/node = SubResource("AnimationNodeBlendSpace2D_d2wvv")
 nodes/BlendSpace2D/position = Vector2(-240, 260)
@@ -129,6 +147,9 @@ node_connections = [&"output", 0, &"TimeScale", &"TimeScale", 0, &"BlendSpace2D"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g2els"]
 animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gmlin"]
+animation = &"seed"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qhqgy"]
 animation = &"walk"
@@ -147,14 +168,24 @@ animation = &"walk"
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lvxji"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p47bc"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_75vfm"]
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_65pfw"]
 states/farm/node = SubResource("AnimationNodeBlendTree_jej6c")
-states/farm/position = Vector2(571, 197)
+states/farm/position = Vector2(617, 224)
 states/idle/node = SubResource("AnimationNodeAnimation_g2els")
 states/idle/position = Vector2(386, 78)
+states/seed/node = SubResource("AnimationNodeAnimation_gmlin")
+states/seed/position = Vector2(359, 224)
 states/walk/node = SubResource("AnimationNodeAnimation_qhqgy")
-states/walk/position = Vector2(591, 89)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_dqkch"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_qlg0r"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_tuyoq"), "idle", "farm", SubResource("AnimationNodeStateMachineTransition_f1ej7"), "walk", "farm", SubResource("AnimationNodeStateMachineTransition_oprun"), "farm", "idle", SubResource("AnimationNodeStateMachineTransition_a8ls1")]
+states/walk/position = Vector2(591, 78)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_dqkch"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_qlg0r"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_tuyoq"), "idle", "farm", SubResource("AnimationNodeStateMachineTransition_f1ej7"), "walk", "farm", SubResource("AnimationNodeStateMachineTransition_oprun"), "farm", "idle", SubResource("AnimationNodeStateMachineTransition_a8ls1"), "walk", "seed", SubResource("AnimationNodeStateMachineTransition_lvxji"), "idle", "seed", SubResource("AnimationNodeStateMachineTransition_p47bc"), "seed", "idle", SubResource("AnimationNodeStateMachineTransition_75vfm")]
 graph_offset = Vector2(2, 52)
 
 [node name="player" type="CharacterBody2D" unique_id=1568587336]
@@ -164,7 +195,7 @@ script = ExtResource("3_qlg0r")
 position = Vector2(0, -14)
 texture = ExtResource("2_g2els")
 hframes = 8
-vframes = 4
+vframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1023928066]
 shape = SubResource("CircleShape2D_05sxq")

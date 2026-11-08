@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="CropData" format=3 uid="uid://xj26dent056j"]
 
+[ext_resource type="Texture2D" uid="uid://c64tigscllxmk" path="res://assets/inventory/pumpkin seed inventory.png" id="1_47q0g"]
 [ext_resource type="Texture2D" uid="uid://ddl4yo8xq03gu" path="res://assets/inventory/pumpkin inventory.png" id="1_dch6m"]
 [ext_resource type="Script" uid="uid://b8sggujbk6vtl" path="res://scripts/crops/CropData.gd" id="1_y8dm6"]
 
@@ -7,7 +8,7 @@
 script = ExtResource("1_y8dm6")
 crop_name = "pumpkin"
 seed_icon = ExtResource("1_dch6m")
-harvested_icon = ExtResource("1_dch6m")
+harvested_icon = ExtResource("1_47q0g")
 crop_id = 6
 growing_time = 30.0
 metadata/_custom_type_script = "uid://b8sggujbk6vtl"

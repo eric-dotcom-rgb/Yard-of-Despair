@@ -27,11 +27,12 @@ Keys for movement:
 	S - going down
 	A - going left
 	D - giong right
-Keys for farming:
-	left-click mouse: farm land 
+Key for farming:
+	F: farm land 
 		if pressed with the pointer on left side: farm left
 		if pressed with the pointer on right side: farm right
 		max a min distance from player to farm: 16px or 1 block
+		you need to hover the tile you want to farm for maximum precision
 Key for main menu:
 	ESC
 	In the main menu you can:
@@ -44,6 +45,19 @@ Key for main menu:
 	-Exit the game by pressing 'EXIT' and either confirm the action or go back to menu
 	 !!! CAUTION: You MUST close the game by pressing on the button. If you do the classic
 	 Alt+F4 to close the game, no progress will be logged on user !!!
+Key for planting seed:
+	left-click mouse: plant seed
+		if pressed with the pointer on left side: plant left
+		if pressed with the pointer on right side: plant right
+		max a min distance from player to farm: 16px or 1 block
+		you need to hover the tile you want to farm for maximum precision
+Keys for changing crop on the hotbar:
+	Press Keys to access the descripted crops
+	1 -> carrot
+	2 -> hot chili pepper
+	3 -> onion
+	4 -> potatoe
+	5 -> pumpkin
 
 # Characteristics - Code
 
@@ -88,6 +102,42 @@ use the exit option, it will save automatically the file once you confirm the ex
 '...Yes'. You can also press 'No :)' if you decide to play some more (in current state I doubt
 you want to XD).
 
+Week 3:
+World:
+Added a farming system in which you can plant your seeds and pick up the crops after. The 
+system saves the stages of the growth of the seed and the position of the planted seeds. By 
+"stages" I mean that when the seed is planted, the seed transforms into a light green plant(stage 1),
+then into a green plant(stage 2), and finally the crop grows and you can pick it up. The sysatem also
+saves the amount of seeds in your inventory, how many crops do you have and the coins you got(for
+now I only added the slot and the tag, but it doesn't work until I put a shop in the game). The 
+seeds and crops are each saved by the type of vegetable you chose to plant. So, don't worry, your
+plants won't get lost or mixed up! Also, each type of crop got its own growing times, so, be patient!
+HUD:
+Added an inventory that indicates the current slot, the amount of crops and seeds you have and coins.
+The slot can be changed by pressing from 1 to 5, as there are exatcly 5 kinds of crops avaiable to plant.
+The crop counter counts how many fresh vegetables you picked up from the ground of that kind. The seed 
+counter counts how many seed you have for that type of vegetable. The two counters may vary if you press for
+example 1-Carrots or 5-Pumpkins. For example, if you plant 3 seed of carrot, the seed counter on the carrot
+slot will say: 2, because you used up 3 of the 5 seed you initially get for every vegetable. But, if you press
+the number 5-Pumpkin, it will display that you have still 5 seed, because you haven't planted any!
+Player:
+I modified the farm button because I will try to use the main action button as the left click of the mouse now.
+To farm, now you need to hover with the pointer the dirt tile you want to farm and simply press F. Be aware tho,
+you cant farm tiles below your feet or more distant than 1 block! It's a physics rule: you can't just farm the
+ground by looking at it irl! Also, now you can plant by using the main action button, the left click of the mouse.
+Same physics of the farming action, different style: instead of the farm animation we got the "seed" animation.
+Tiles:
+Resolved some tile problems with the sky, as Godot wanted to make a 32x32 tile place like a 16x16, so the center
+was anchored and then it would just create an overborder onto the next tile. So I changed the origin tile and moved
+it by 8 px by each axis so at least it would place corretcly in the map. Then I placed all the tiles by hand because
+if I used the square option to just select the area and put them all, it would cover a 16x16 tile and overborder onto
+the near 3 tiles, and then that 3 tiles would be filled with another tile that would overborder onto the next ones and
+so on, ann it looked all bugged and horrible, so I placed them by hand all around the map.
+Files:
+Added a cropdata main file that store all the basic things for a crop like seed image, crop image, growing time, ids of
+the tiles of sprouts and the id of the tile with the crop. Then copied all of it for every crop in a .tres file with the 
+crop name for each one.
+
 # Characteristics - Animations
 
 Week 1:
@@ -103,6 +153,9 @@ talking when it will talk its story/missions(I'll see what to do).
 
 Week 2:
 Updated the farm animation. Made animations for frogs and all the animated tiles of water.
+
+Week 3:
+Made the seed animation for player and the growing of the seed, if it counts as animation(but isnt).
 
 # Characteristics - Pixel Art
 
@@ -181,6 +234,22 @@ I made animated tiles for water and sky and some more art
 	-sky road var2 spritesheet.png
 	-sky gate.png
 
+Week 3:
+Done all the positioning of the sky tiles and the gates and the sky road. I also made the base of the
+inventory and updated the player spritesheet and done some new hotbar images for the crops and seeds:
+	-player sheet.png (updated)
+	-inventory.png
+	-carrot inventory.png
+	-carrot seed inventory.png
+	-onion inventory.png
+	-onion seed inventory.png
+	-pumpkin inventory.png
+	-pumpkin seed inventory.png
+	-hot chili peppers inventory.png
+	-hot chili peppers seed inventory.png
+	-potato inventory.png
+	-potato seed inventory.png
+
 # How to run - Requisites
 
 - Download the Godot Engine v4.x so it can run the script and run the game 
@@ -196,12 +265,12 @@ Option 1: With game engine
 4. Enjoy the game!
 
 Option 2: Download the .exe
-1. Go to releases on Gitlab
+1. Go to releases on Github
 2. Download the Yard of Despair.exe file
 3. Run it on your pc!
 
 !- it is a game in progress, so don't expect it to be perfect, neither complete 
-of the list of things I cited in the description. Follow along the Gitlab project 
+of the list of things I cited in the description. Follow along the Github project 
 to know when it's done!
 
 # Credits
@@ -210,6 +279,7 @@ Developed by: Eric Gervasi
 
 # Links
 
+Github: https://github.com/eric-dotcom-rgb/Yard-of-Despair/
 Gitlab: https://gitlab.com/eric-gg/yard-of-despair
 Terra: noobatcoding
 Slack: noobatcoding

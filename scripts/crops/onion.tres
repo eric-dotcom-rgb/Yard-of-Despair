@@ -1,10 +1,14 @@
 [gd_resource type="Resource" script_class="CropData" format=3 uid="uid://d4dnvb0e7k3w5"]
 
 [ext_resource type="Script" uid="uid://b8sggujbk6vtl" path="res://scripts/crops/CropData.gd" id="1_jf0wh"]
+[ext_resource type="Texture2D" uid="uid://kvnsypu7pjvq" path="res://assets/inventory/onion seed inventory.png" id="1_won5j"]
+[ext_resource type="Texture2D" uid="uid://cgx3o5pyjat4n" path="res://assets/inventory/onion inventory.png" id="3_y2t68"]
 
 [resource]
 script = ExtResource("1_jf0wh")
 crop_name = "onion"
+seed_icon = ExtResource("3_y2t68")
+harvested_icon = ExtResource("1_won5j")
 crop_id = 4
 growing_time = 10.0
 metadata/_custom_type_script = "uid://b8sggujbk6vtl"
