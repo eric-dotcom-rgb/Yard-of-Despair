@@ -13,12 +13,14 @@ func _ready() -> void:
 	exit.pressed.connect(_on_exit_pressed)
 	confirmation_dialog.confirmed.connect(_on_exit_confirmed)
 	var config = ConfigFile.new()
+	
 	if config.load(SAVE_PATH) == OK:
 		resume.visible = true
 	else:
 		resume.visible = false
 
 func _unhandled_input(event: InputEvent) -> void:
+	
 	if event.is_action_pressed("esc"):
 			toggle_pause()
 
@@ -26,6 +28,15 @@ func toggle_pause() -> void:
 	is_paused = !is_paused
 	visible = is_paused
 	get_tree().paused = is_paused
+	
+	if is_paused:
+		resume.visible = true
+		
+	var hud = get_tree().current_scene.get_node_or_null("hud")
+	
+	if hud:
+		hud.visible = not is_paused
+		
 	if is_paused:
 		resume.visible = true
 
@@ -34,6 +45,11 @@ func _on_resume_pressed() -> void:
 	get_tree().paused = false
 	is_paused = false
 	visible = false
+	var hud = get_tree().current_scene.get_node_or_null("hud")
+	
+	if hud:
+		hud.visible = true
+		
 	if get_tree().current_scene.name !="world":
 		get_tree().change_scene_to_file("res://scenes/world.tscn")
 		await get_tree().tree_changed
@@ -43,11 +59,18 @@ func _on_resume_pressed() -> void:
 func _on_new_game_pressed() -> void:
 	new_game.release_focus()
 	var dir = DirAccess.open("user://")
+	
 	if dir and dir.file_exists("save_game.cfg"):
 		dir.remove("save_game.cfg")
+		
 	get_tree().paused = false
 	is_paused = false
 	visible = false
+	var hud = get_tree().current_scene.get_node_or_null("hud")
+	
+	if hud:
+		hud.visible = true
+		
 	if get_tree().current_scene.name == "world":
 		get_tree().reload_current_scene()
 	else:
@@ -70,11 +93,13 @@ func save_game():
 	
 	#giocatore
 	var player = get_tree().current_scene.get_node_or_null("player")
+	
 	if player:
 		config.set_value("player", "position", player.global_position)
 	
 	#tile modificati
 	var dirt_layer = get_tree().current_scene.get_node_or_null("tiles/dirt")
+	
 	if dirt_layer:
 		var tile_saved = {}
 		var used_cells = dirt_layer.get_used_cells()
@@ -82,8 +107,10 @@ func save_game():
 			var source_id = dirt_layer.get_cell_source_id(cell)
 			tile_saved[var_to_str(cell)] = source_id
 		config.set_value("map", "farmed_tiles", tile_saved)
+		
 	#tile dei crop
 	var active_crops_saved = {}
+	
 	for cell in current_scene.active_crops:
 		var data = current_scene.active_crops[cell]
 		active_crops_saved[var_to_str(cell)] = {
@@ -92,11 +119,25 @@ func save_game():
 		} 
 	config.set_value("map", "planted_crops", active_crops_saved)
 	
+	#inventario per intero(monete, semi, crop e slot attivo
+	var hotbar = current_scene.get_node_or_null("hud/hotbar")
+	
+	if hotbar:
+		config.set_value("inventory", "coins", hotbar.coins)
+		config.set_value("inventory", "selected_index", hotbar.selected_index)
+		var inv_saved = {}
+		
+		for crop in hotbar.items:
+			if crop != null and crop.resource_path != "":
+				inv_saved[crop.resource_path] = hotbar.items[crop]
+		config.set_value("inventory", "items", inv_saved)
+	
 	config.save(SAVE_PATH)
 	print("game saved on user")
 
 func load_game():
 	var config = ConfigFile.new()
+	
 	if config.load(SAVE_PATH) != OK:
 		return
 		
@@ -104,11 +145,13 @@ func load_game():
 	
 	#giocatore
 	var player= get_tree().current_scene.get_node_or_null("player")
+	
 	if player:
 		player.global_position = config.get_value("player", "position", player.global_position)
 		
 	#tile modificati
 	var dirt_layer = get_tree().current_scene.get_node_or_null("tiles/dirt")
+	
 	if dirt_layer:
 		var tile_saved = config.get_value("map", "farmed_tiles", {})
 		for cell_str in tile_saved:
@@ -118,6 +161,7 @@ func load_game():
 	
 	#tile dei crop
 	var crops_layer = current_scene.get_node_or_null("tiles/crops")
+	
 	if crops_layer and current_scene.has_method("restore_crop"):
 		crops_layer.clear()
 		current_scene.active_crops.clear()
@@ -128,4 +172,19 @@ func load_game():
 			var crop_res: CropData = load(info["crop_path"])
 			if crop_res:
 				current_scene.restore_crop(cell, crop_res, info["stage"])
+	
+	#inventario per intero(monete, semi, crop e slot attivo
+	var hotbar = current_scene.get_node_or_null("hud/hotbar")
+	
+	if hotbar:
+		hotbar.coins = config.get_value("inventory", "coins", 0)
+		hotbar.selected_index = config.get_value("inventory", "selected_index", 0)
+		
+		var inv_saved = config.get_value("inventory", "items", {})
+		for crop_path in inv_saved:
+			var crop_res: CropData = load(crop_path)
+			if crop_res:
+				hotbar.items[crop_res] = inv_saved[crop_path]
+		hotbar.update_ui()
+		
 	print("game loaded!")

@@ -6,4 +6,5 @@
 [resource]
 script = ExtResource("1_wkr61")
 seed_icon = ExtResource("3_r8g15")
+harvested_icon = ExtResource("3_r8g15")
 metadata/_custom_type_script = "uid://b8sggujbk6vtl"

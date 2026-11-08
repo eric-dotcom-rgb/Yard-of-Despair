@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CropData" format=3 uid="uid://d4dnvb0e7k3w5"]
+
+[ext_resource type="Script" uid="uid://b8sggujbk6vtl" path="res://scripts/crops/CropData.gd" id="1_jf0wh"]
+
+[resource]
+script = ExtResource("1_jf0wh")
+crop_name = "onion"
+crop_id = 4
+growing_time = 10.0
+metadata/_custom_type_script = "uid://b8sggujbk6vtl"

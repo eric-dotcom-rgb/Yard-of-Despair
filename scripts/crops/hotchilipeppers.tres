@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CropData" format=3 uid="uid://c6ajoc0mxv0mm"]
+
+[ext_resource type="Texture2D" uid="uid://b2s8six068abn" path="res://assets/inventory/hot chili peppers inventory.png" id="1_0wmnv"]
+[ext_resource type="Script" uid="uid://b8sggujbk6vtl" path="res://scripts/crops/CropData.gd" id="1_qqcsk"]
+
+[resource]
+script = ExtResource("1_qqcsk")
+crop_name = "hotchilipeppers"
+seed_icon = ExtResource("1_0wmnv")
+harvested_icon = ExtResource("1_0wmnv")
+crop_id = 3
+growing_time = 7.0
+metadata/_custom_type_script = "uid://b8sggujbk6vtl"

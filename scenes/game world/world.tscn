@@ -40,16 +40,25 @@
 [ext_resource type="Texture2D" uid="uid://bcaug2dbt6nfj" path="res://assets/blocks/trees/apple tree.png" id="35_v3e8a"]
 [ext_resource type="Texture2D" uid="uid://c0p2q046r65ht" path="res://assets/blocks/trees/flower tree.png" id="36_h5tbp"]
 [ext_resource type="Texture2D" uid="uid://doahffh1un7r8" path="res://assets/blocks/trees/tree golden.png" id="37_gaa0h"]
+[ext_resource type="Texture2D" uid="uid://bqihqgp0s23tu" path="res://assets/blocks/soil blocks/soil w hot chili peppers.png" id="38_23iur"]
 [ext_resource type="Texture2D" uid="uid://nakkcanfieu7" path="res://assets/blocks/trees/tree.png" id="38_eexqo"]
+[ext_resource type="Texture2D" uid="uid://8osk72ifd51d" path="res://assets/blocks/soil blocks/soil w onion.png" id="39_6j5aq"]
 [ext_resource type="Texture2D" uid="uid://b31bk3xvajoay" path="res://assets/blocks/houses/player house.png" id="39_rg8x6"]
 [ext_resource type="Texture2D" uid="uid://co5lsagco13gm" path="res://assets/blocks/sky/sky gate.png" id="40_58xmm"]
+[ext_resource type="Texture2D" uid="uid://b8g7uj676bvu2" path="res://assets/blocks/soil blocks/soil w potatoes.png" id="40_gjff2"]
 [ext_resource type="PackedScene" uid="uid://dcuqe4xppn4wn" path="res://scenes/player/player.tscn" id="41_7byp7"]
+[ext_resource type="Texture2D" uid="uid://dp6i70eq3ikkc" path="res://assets/blocks/soil blocks/soil w pumpkin.png" id="41_crbsl"]
 [ext_resource type="PackedScene" uid="uid://der5tgkvsthpg" path="res://scenes/sprites/farmer_1.tscn" id="42_d15uq"]
 [ext_resource type="PackedScene" uid="uid://6kscqys377kg" path="res://scenes/sprites/frog Terra.tscn" id="43_1n6mn"]
 [ext_resource type="PackedScene" uid="uid://cxcufk2kej6fe" path="res://scenes/sprites/frog Ruby.tscn" id="44_v8f2d"]
-[ext_resource type="Script" uid="uid://bnt0xljhs1txe" path="res://scripts/crops/inventory.gd" id="45_1h8tx"]
 [ext_resource type="Script" uid="uid://b8sggujbk6vtl" path="res://scripts/crops/CropData.gd" id="46_xjx7w"]
 [ext_resource type="Resource" uid="uid://ck3rgqqecrqfp" path="res://scripts/crops/carrot.tres" id="47_f222t"]
+[ext_resource type="Texture2D" uid="uid://cgrhl83i6oahq" path="res://assets/inventory/inventory.png" id="48_qgw2r"]
+[ext_resource type="Script" uid="uid://bcwc2hch4p1gv" path="res://scripts/crops/hotbar.gd" id="49_htetq"]
+[ext_resource type="Resource" uid="uid://c6ajoc0mxv0mm" path="res://scripts/crops/hotchilipeppers.tres" id="56_vdpth"]
+[ext_resource type="Resource" uid="uid://d4dnvb0e7k3w5" path="res://scripts/crops/onion.tres" id="57_crbsl"]
+[ext_resource type="Resource" uid="uid://cq1boynjpkr06" path="res://scripts/crops/potatoes.tres" id="58_vdpth"]
+[ext_resource type="Resource" uid="uid://xj26dent056j" path="res://scripts/crops/pumpkin.tres" id="59_q3yj0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5hl1e"]
 texture = ExtResource("3_xjx7w")
@@ -286,10 +295,30 @@ texture = ExtResource("33_4o7gj")
 texture = ExtResource("32_27ysk")
 0:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q3yj0"]
+texture = ExtResource("38_23iur")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aci2j"]
+texture = ExtResource("39_6j5aq")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u8x6f"]
+texture = ExtResource("40_gjff2")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2go03"]
+texture = ExtResource("41_crbsl")
+0:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_bpt64"]
 sources/1 = SubResource("TileSetAtlasSource_hufg4")
 sources/0 = SubResource("TileSetAtlasSource_htetq")
 sources/2 = SubResource("TileSetAtlasSource_lu05h")
+sources/3 = SubResource("TileSetAtlasSource_q3yj0")
+sources/4 = SubResource("TileSetAtlasSource_aci2j")
+sources/5 = SubResource("TileSetAtlasSource_u8x6f")
+sources/6 = SubResource("TileSetAtlasSource_2go03")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ggc52"]
 texture = ExtResource("35_v3e8a")
@@ -462,40 +491,64 @@ position = Vector2(321, 599)
 
 [node name="hud" type="CanvasLayer" parent="." unique_id=2011215799]
 
-[node name="inventory" type="HBoxContainer" parent="hud" unique_id=1470507416]
-custom_minimum_size = Vector2(48, 48)
+[node name="hotbar" type="TextureRect" parent="hud" unique_id=1652410142]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -283.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = 83.0
+offset_left = -432.0
+offset_top = 3.0
+offset_right = -4.0
+offset_bottom = 153.0
 grow_horizontal = 0
-script = ExtResource("45_1h8tx")
-slots_data = Array[ExtResource("46_xjx7w")]([ExtResource("47_f222t")])
+texture = ExtResource("48_qgw2r")
+script = ExtResource("49_htetq")
+slots_data = Array[ExtResource("46_xjx7w")]([ExtResource("47_f222t"), ExtResource("56_vdpth"), ExtResource("57_crbsl"), ExtResource("58_vdpth"), ExtResource("59_q3yj0")])
 
-[node name="slot1" type="TextureRect" parent="hud/inventory" unique_id=80381613]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-expand_mode = 1
-stretch_mode = 5
+[node name="crop icon" type="TextureRect" parent="hud/hotbar" unique_id=1663986357]
+layout_mode = 0
+offset_left = 40.0
+offset_top = 52.0
+offset_right = 116.0
+offset_bottom = 126.0
 
-[node name="count" type="Label" parent="hud/inventory/slot1" unique_id=1152257200]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
+[node name="slot num" type="Label" parent="hud/hotbar" unique_id=883094790]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 70.0
+offset_right = 30.0
+offset_bottom = 95.0
+
+[node name="seeds num" type="Label" parent="hud/hotbar" unique_id=1504559388]
+layout_mode = 0
+offset_left = 158.0
+offset_top = 100.0
+offset_right = 222.0
+offset_bottom = 123.0
+
+[node name="crop num" type="Label" parent="hud/hotbar" unique_id=22877203]
+layout_mode = 0
+offset_left = 156.0
+offset_top = 65.0
+offset_right = 226.0
+offset_bottom = 88.0
+
+[node name="coins num" type="Label" parent="hud/hotbar" unique_id=497850684]
+layout_mode = 0
+offset_left = 346.0
+offset_top = 69.0
+offset_right = 395.0
+offset_bottom = 112.0
+
+[node name="inventory" type="ColorRect" parent="hud" unique_id=1665902304]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -53.0
-offset_right = 101.0
-grow_vertical = 0
-vertical_alignment = 2
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.92941177)
 
-[node name="slot2" type="TextureRect" parent="hud/inventory" unique_id=1178322277]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-
-[node name="count" type="Label" parent="hud/inventory/slot2" unique_id=432251033]
+[node name="TextureRect" type="TextureRect" parent="hud/inventory" unique_id=560126473]
 layout_mode = 0
 offset_right = 40.0
-offset_bottom = 23.0
+offset_bottom = 40.0

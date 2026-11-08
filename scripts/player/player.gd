@@ -19,8 +19,10 @@ func _ready() -> void:           #cosi nel gioco il Tree rimane sempre acceso an
 	animation_tree.set_active(true)
 	
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+	if event is InputEventKey and event.keycode == KEY_F and event.pressed and not event.echo:
 		farm()
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+		pick_up()
 
 func _physics_process(_delta: float) -> void:
 	if not state == State.FARM:
@@ -55,49 +57,77 @@ func update_animation() -> void:
 			animation_playback.travel("walk")
 		State.FARM:
 			animation_playback.travel("farm")
+			
+func _get_target_grid() -> Array:
+	var mouse_pos: Vector2 = get_global_mouse_position()
+	var dir: Vector2 = (mouse_pos - global_position).normalized()
+	var dirt_layer = get_parent().get_node("tiles/dirt")
+	var hit_pos = global_position + (dir * 16)
+	return [dirt_layer.local_to_map(hit_pos), dir, dirt_layer]
 
+#zappare
 func farm() -> void:
 	if state == State.FARM:
 		return
-	state = State.FARM
+	var target_info = _get_target_grid()
+	var target_grid: Vector2i = target_info[0]
+	var farm_dir: Vector2 = target_info[1]
+	var dirt_layer: TileMapLayer = target_info[2]
 	
+	var world_node = get_parent()
+	var current_dirt_source = dirt_layer.get_cell_source_id(target_grid)
+	var current_dirt_atlas = dirt_layer.get_cell_atlas_coords(target_grid)
+	var hotbar = world_node.get_node("hud/hotbar")
+	
+	#controlla cella
+	var is_dirt: bool = (current_dirt_source == 0 or current_dirt_source == 1 and current_dirt_atlas == Vector2i(0,0))
+	var is_plant: bool = (world_node.active_crops.has(target_grid) and world_node.active_crops[target_grid]["stage"] < 2)
+	
+	#se non è niente, non fare l'animazione
+	if not is_dirt and not is_plant:
+		return
+	
+	#animazione
+	state = State.FARM
 	velocity = Vector2.ZERO
-	var mouse_pos: Vector2 = get_global_mouse_position()
-	var farm_dir: Vector2 = (mouse_pos - global_position).normalized()
 	$Sprite2D.flip_h = farm_dir.x < 0.01 and abs(farm_dir.x) >= abs(farm_dir.y)
 	animation_tree.set("parameters/farm/BlendSpace2D/blend_position", farm_dir)
 	update_animation()
-	
-	var world_node = get_parent()
-	var dirt_layer = world_node.get_node("tiles/dirt")
-	
-	var _player_grid = dirt_layer.local_to_map(global_position)
-	var hit_global_position = global_position + (farm_dir * 16)
-	var target_grid = dirt_layer.local_to_map(hit_global_position)
-	
-	var current_dirt_source = dirt_layer.get_cell_source_id(target_grid)
-	var current_dirt_atlas = dirt_layer.get_cell_atlas_coords(target_grid)
-	
-	var inventory = world_node.get_node("hud/inventory")
-	
-	var harvested = world_node.try_harvest(target_grid)
 
-	#prova a raccogliere
-	if harvested != null:
-		inventory.add_harvested(harvested)
-		print("Hai raccolto: ", harvested.crop_name)
-	
-	#controlla cosa ce sul terreno se è gia farmato
-	elif current_dirt_source == 2:
-		var selected_crop = inventory.get_selected_crop()
-		if selected_crop != null:
-			world_node.plant_crop(target_grid, selected_crop)
-			inventory.consume_seed(selected_crop)
-			
-	elif current_dirt_atlas == Vector2i(0,0):
+	#toglie pianta e ti da il seme o zappa la dirt normalmente
+	if is_plant:
+		var returned_crop = world_node.farm(target_grid)
+		if returned_crop != null:
+			hotbar.add_seed(returned_crop)
+	elif is_dirt:
 		if world_node.has_method("change_tile"):
 			world_node.change_tile(target_grid, 2, Vector2i(0,0))
 		
 	await get_tree().create_timer(farm_speed).timeout
 	state = State.IDLE
+
+func pick_up() -> void:
+	if state == State.FARM:
+		return
+		
+	var target_info = _get_target_grid()
+	var target_grid: Vector2i = target_info[0]
+	var dirt_layer: TileMapLayer = target_info[2]
 	
+	var world_node = get_parent()
+	var current_dirt_source = dirt_layer.get_cell_source_id(target_grid)
+	var hotbar = world_node.get_node("hud/hotbar")
+	
+	var harvested = world_node.try_harvest(target_grid)
+	
+	#prova a raccogliere il crop
+	if harvested !=null:
+		hotbar.add_harvested(harvested)
+		return
+	
+	#controlla cosa ce sul terreno e se è gia farmato cosi può piantare
+	if current_dirt_source == 2 and not world_node.active_crops.has(target_grid):
+		var selected_crop = hotbar.get_selected_crop()
+		if selected_crop != null:
+			world_node.plant_crop(target_grid, selected_crop)
+			hotbar.consume_seed(selected_crop)

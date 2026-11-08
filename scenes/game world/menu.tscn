@@ -4,6 +4,7 @@
 
 [node name="menu" type="CanvasLayer" unique_id=1358384024]
 process_mode = 3
+layer = 10
 script = ExtResource("1_6fj3x")
 
 [node name="bg" type="ColorRect" parent="." unique_id=1405542615]

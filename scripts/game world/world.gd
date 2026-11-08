@@ -53,3 +53,11 @@ func _grow_from_stage_1(grid_coord: Vector2i, crop: CropData) -> void:
 		return
 	crops_layer.set_cell(grid_coord, crop.crop_id, Vector2i(0,0))
 	active_crops[grid_coord]["stage"] = 2
+
+func farm(grid_coord:Vector2i) -> CropData:
+	if active_crops.has(grid_coord) and active_crops[grid_coord]["stage"] < 2:
+		var crop_data= active_crops[grid_coord]["crop"]
+		crops_layer.erase_cell(grid_coord)
+		active_crops.erase(grid_coord)
+		return crop_data
+	return null
