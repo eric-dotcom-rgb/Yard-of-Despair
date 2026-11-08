@@ -463,13 +463,39 @@ position = Vector2(321, 599)
 [node name="hud" type="CanvasLayer" parent="." unique_id=2011215799]
 
 [node name="inventory" type="HBoxContainer" parent="hud" unique_id=1470507416]
-offset_right = 40.0
-offset_bottom = 40.0
+custom_minimum_size = Vector2(48, 48)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -283.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = 83.0
+grow_horizontal = 0
 script = ExtResource("45_1h8tx")
 slots_data = Array[ExtResource("46_xjx7w")]([ExtResource("47_f222t")])
 
-[node name="TextureRect" type="TextureRect" parent="hud/inventory" unique_id=80381613]
+[node name="slot1" type="TextureRect" parent="hud/inventory" unique_id=80381613]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="count" type="Label" parent="hud/inventory/slot1" unique_id=1152257200]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -53.0
+offset_right = 101.0
+grow_vertical = 0
+vertical_alignment = 2
+
+[node name="slot2" type="TextureRect" parent="hud/inventory" unique_id=1178322277]
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 
-[node name="TextureRect2" type="TextureRect" parent="hud/inventory" unique_id=1178322277]
-layout_mode = 2
+[node name="count" type="Label" parent="hud/inventory/slot2" unique_id=432251033]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

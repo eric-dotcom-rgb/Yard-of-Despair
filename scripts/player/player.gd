@@ -82,13 +82,17 @@ func farm() -> void:
 	
 	var harvested = world_node.try_harvest(target_grid)
 
+	#prova a raccogliere
 	if harvested != null:
+		inventory.add_harvested(harvested)
 		print("Hai raccolto: ", harvested.crop_name)
-		
+	
+	#controlla cosa ce sul terreno se è gia farmato
 	elif current_dirt_source == 2:
 		var selected_crop = inventory.get_selected_crop()
 		if selected_crop != null:
 			world_node.plant_crop(target_grid, selected_crop)
+			inventory.consume_seed(selected_crop)
 			
 	elif current_dirt_atlas == Vector2i(0,0):
 		if world_node.has_method("change_tile"):
