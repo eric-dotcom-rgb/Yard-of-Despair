@@ -10,5 +10,6 @@ crop_name = "hotchilipeppers"
 seed_icon = ExtResource("1_0wmnv")
 harvested_icon = ExtResource("1_v57l6")
 crop_id = 3
+seed_price = 8
 growing_time = 7.0
 metadata/_custom_type_script = "uid://b8sggujbk6vtl"

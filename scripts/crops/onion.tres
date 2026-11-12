@@ -10,5 +10,6 @@ crop_name = "onion"
 seed_icon = ExtResource("3_y2t68")
 harvested_icon = ExtResource("1_won5j")
 crop_id = 4
+seed_price = 12
 growing_time = 10.0
 metadata/_custom_type_script = "uid://b8sggujbk6vtl"

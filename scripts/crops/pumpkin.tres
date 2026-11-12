@@ -10,5 +10,6 @@ crop_name = "pumpkin"
 seed_icon = ExtResource("1_dch6m")
 harvested_icon = ExtResource("1_47q0g")
 crop_id = 6
+seed_price = 18
 growing_time = 30.0
 metadata/_custom_type_script = "uid://b8sggujbk6vtl"
