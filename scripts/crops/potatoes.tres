@@ -3,12 +3,14 @@
 [ext_resource type="Script" uid="uid://b8sggujbk6vtl" path="res://scripts/crops/CropData.gd" id="1_0e5g8"]
 [ext_resource type="Texture2D" uid="uid://qccqtg3g1rma" path="res://assets/inventory/potato inventory.png" id="1_5iyk4"]
 [ext_resource type="Texture2D" uid="uid://cppwhheac6ioc" path="res://assets/inventory/potato seed inventory.png" id="1_eo0dr"]
+[ext_resource type="Texture2D" uid="uid://dgaeq46dh6v6k" path="res://assets/shop window/seed container for potatoes.png" id="4_xhrst"]
 
 [resource]
 script = ExtResource("1_0e5g8")
 crop_name = "potatoes"
 seed_icon = ExtResource("1_5iyk4")
 harvested_icon = ExtResource("1_eo0dr")
+shop_row_texture = ExtResource("4_xhrst")
 crop_id = 5
 seed_price = 3
 growing_time = 12.0

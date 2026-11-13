@@ -3,12 +3,14 @@
 [ext_resource type="Script" uid="uid://b8sggujbk6vtl" path="res://scripts/crops/CropData.gd" id="1_jf0wh"]
 [ext_resource type="Texture2D" uid="uid://kvnsypu7pjvq" path="res://assets/inventory/onion seed inventory.png" id="1_won5j"]
 [ext_resource type="Texture2D" uid="uid://cgx3o5pyjat4n" path="res://assets/inventory/onion inventory.png" id="3_y2t68"]
+[ext_resource type="Texture2D" uid="uid://d0p4ve1r42f33" path="res://assets/shop window/seed container for onion.png" id="4_y2t68"]
 
 [resource]
 script = ExtResource("1_jf0wh")
 crop_name = "onion"
 seed_icon = ExtResource("3_y2t68")
 harvested_icon = ExtResource("1_won5j")
+shop_row_texture = ExtResource("4_y2t68")
 crop_id = 4
 seed_price = 12
 growing_time = 10.0

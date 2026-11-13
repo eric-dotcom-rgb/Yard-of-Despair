@@ -60,6 +60,10 @@
 [ext_resource type="Resource" uid="uid://d4dnvb0e7k3w5" path="res://scripts/crops/onion.tres" id="57_crbsl"]
 [ext_resource type="Resource" uid="uid://cq1boynjpkr06" path="res://scripts/crops/potatoes.tres" id="58_vdpth"]
 [ext_resource type="Resource" uid="uid://xj26dent056j" path="res://scripts/crops/pumpkin.tres" id="59_q3yj0"]
+[ext_resource type="Texture2D" uid="uid://vf0mrr7metcq" path="res://assets/shop window/shop page.png" id="61_aci2j"]
+[ext_resource type="Texture2D" uid="uid://dqg5lplnvt467" path="res://assets/shop window/close button unpressed.png" id="62_2go03"]
+[ext_resource type="Script" uid="uid://k57yl6f04elg" path="res://scenes/game world/shop.gd" id="62_u8x6f"]
+[ext_resource type="Texture2D" uid="uid://b1dh6rnau4mm1" path="res://assets/shop window/close button pressed.png" id="63_7k31n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5hl1e"]
 texture = ExtResource("3_xjx7w")
@@ -554,6 +558,9 @@ texture = ExtResource("40_58xmm")
 [sub_resource type="TileSet" id="TileSet_4v6ov"]
 sources/0 = SubResource("TileSetAtlasSource_mvg0v")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_76q2l"]
+size = Vector2(40, 9)
+
 [node name="world" type="Node2D" unique_id=733376984]
 y_sort_enabled = true
 script = ExtResource("1_4o7gj")
@@ -599,7 +606,6 @@ y_sort_enabled = true
 tile_map_data = PackedByteArray("AAArAAsAAAAAAAAAAAArAAwAAAAAAAEAAAArAA0AAAAAAAIAAAArAA4AAAAAAAMAAAArAA8AAAAAAAQAAAAsAAsAAAABAAAAAAAsAAwAAAABAAEAAAAsAA0AAAABAAIAAAAsAA4AAAABAAMAAAAsAA8AAAABAAQAAAAtAAsAAAACAAAAAAAtAAwAAAACAAEAAAAtAA0AAAACAAIAAAAtAA4AAAACAAMAAAAtAA8AAAACAAQAAAAuAAsAAAADAAAAAAAuAAwAAAADAAEAAAAuAA0AAAADAAIAAAAuAA4AAAADAAMAAAAuAA8AAAADAAQAAAAvAAsAAAAEAAAAAAAvAAwAAAAEAAEAAAAvAA0AAAAEAAIAAAAvAA4AAAAEAAMAAAAvAA8AAAAEAAQAAAAwAAsAAAAFAAAAAAAwAAwAAAAFAAEAAAAwAA0AAAAFAAIAAAAwAA4AAAAFAAMAAAAwAA8AAAAFAAQAAAAxAAsAAAAGAAAAAAAxAAwAAAAGAAEAAAAxAA0AAAAGAAIAAAAxAA4AAAAGAAMAAAAxAA8AAAAGAAQAAAAyAAsAAAAHAAAAAAAyAAwAAAAHAAEAAAAyAA0AAAAHAAIAAAAyAA4AAAAHAAMAAAAyAA8AAAAHAAQAAAArABAAAAAAAAUAAAAsABAAAAABAAUAAAAtABAAAAACAAUAAAAuABAAAAADAAUAAAAvABAAAAAEAAUAAAAwABAAAAAFAAUAAAAxABAAAAAGAAUAAAAyABAAAAAHAAUAAAAzAAsAAAAIAAAAAAAzAAwAAAAIAAEAAAAzAA0AAAAIAAIAAAAzAA4AAAAIAAMAAAAzAA8AAAAIAAQAAAAzABAAAAAIAAUAAABHAA0AAQAAAAQAAABHAAwAAQAAAAMAAABHAAsAAQAAAAIAAABHAAoAAQAAAAEAAABHAAkAAQAAAAAAAABIAA0AAQABAAQAAABIAAwAAQABAAMAAABIAAsAAQABAAIAAABIAAoAAQABAAEAAABIAAkAAQABAAAAAABJAA0AAQACAAQAAABJAAwAAQACAAMAAABJAAsAAQACAAIAAABJAAoAAQACAAEAAABJAAkAAQACAAAAAABKAA0AAQADAAQAAABKAAwAAQADAAMAAABKAAsAAQADAAIAAABKAAoAAQADAAEAAABKAAkAAQADAAAAAABLAA0AAQAEAAQAAABLAAwAAQAEAAMAAABLAAsAAQAEAAIAAABLAAoAAQAEAAEAAABLAAkAAQAEAAAAAABMAA0AAQAFAAQAAABMAAwAAQAFAAMAAABMAAsAAQAFAAIAAABMAAoAAQAFAAEAAABMAAkAAQAFAAAAAABNAA0AAQAGAAQAAABNAAwAAQAGAAMAAABNAAsAAQAGAAIAAABNAAoAAQAGAAEAAABNAAkAAQAGAAAAAABOAA0AAQAHAAQAAABOAAwAAQAHAAMAAABOAAsAAQAHAAIAAABOAAoAAQAHAAEAAABOAAkAAQAHAAAAAAA=")
 tile_set = SubResource("TileSet_7bi7l")
 y_sort_origin = 1
-collision_visibility_mode = 1
 
 [node name="gate" type="TileMapLayer" parent="tiles" unique_id=25244370]
 tile_map_data = PackedByteArray("AAB3ABwAAAAAAAAAAAA=")
@@ -667,16 +673,48 @@ offset_top = 69.0
 offset_right = 395.0
 offset_bottom = 112.0
 
-[node name="inventory" type="ColorRect" parent="hud" unique_id=1665902304]
-visible = false
-anchors_preset = 15
-anchor_right = 1.0
+[node name="shop side borders" type="ColorRect" parent="hud" unique_id=387137883]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = -1272.0
+offset_top = -118.0
+offset_right = 1445.0
+offset_bottom = 54.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.92941177)
+color = Color(0.012617188, 0.012617188, 0.012617188, 0.93333334)
 
-[node name="TextureRect" type="TextureRect" parent="hud/inventory" unique_id=560126473]
+[node name="shop window" type="TextureRect" parent="hud/shop side borders" unique_id=1010699424]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 947.0
+offset_top = 169.0
+offset_right = 1702.0
+offset_bottom = 1139.0
+texture = ExtResource("61_aci2j")
+stretch_mode = 4
+
+[node name="xbutton" type="TextureButton" parent="hud/shop side borders/shop window" unique_id=240994431]
+layout_mode = 0
+offset_left = 662.0
+offset_top = 18.0
+offset_right = 722.0
+offset_bottom = 79.0
+texture_normal = ExtResource("62_2go03")
+texture_pressed = ExtResource("63_7k31n")
+stretch_mode = 4
+
+[node name="crop rows container" type="VBoxContainer" parent="hud/shop side borders/shop window" unique_id=1279457576]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 123.0
+offset_right = 719.0
+offset_bottom = 917.0
+
+[node name="shop" type="Area2D" parent="." unique_id=192363175]
+script = ExtResource("62_u8x6f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="shop" unique_id=631289874]
+position = Vector2(1230, 225.5)
+shape = SubResource("RectangleShape2D_76q2l")
