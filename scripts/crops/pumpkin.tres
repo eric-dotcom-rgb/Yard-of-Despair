@@ -8,8 +8,8 @@
 [resource]
 script = ExtResource("1_y8dm6")
 crop_name = "pumpkin"
-seed_icon = ExtResource("1_dch6m")
-harvested_icon = ExtResource("1_47q0g")
+seed_icon = ExtResource("1_47q0g")
+harvested_icon = ExtResource("1_dch6m")
 shop_row_texture = ExtResource("4_l6cb3")
 crop_id = 6
 seed_price = 18

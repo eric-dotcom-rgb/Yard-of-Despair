@@ -71,7 +71,7 @@ func _get_target_grid() -> Array:
 
 #zappare
 func farm() -> void:
-	if state == State.FARM:
+	if state == State.FARM or state == State.SEED:
 		return
 	var target_info = _get_target_grid()
 	var target_grid: Vector2i = target_info[0]
@@ -111,7 +111,7 @@ func farm() -> void:
 	state = State.IDLE
 
 func pick_up() -> void:
-	if state == State.FARM:
+	if state == State.FARM or state == State.SEED:
 		return
 		
 	var target_info = _get_target_grid()

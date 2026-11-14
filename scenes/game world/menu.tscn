@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://dqljcfph48jkx"]
 
 [ext_resource type="Script" uid="uid://bp54vrj0nsqmj" path="res://scripts/game world/menu.gd" id="1_6fj3x"]
+[ext_resource type="FontFile" uid="uid://d28dphh1v0i6o" path="res://assets/font/BlockCraft.otf" id="2_acx1n"]
+
+[sub_resource type="Theme" id="Theme_vc5x1"]
+default_font = ExtResource("2_acx1n")
+default_font_size = 27
 
 [node name="menu" type="CanvasLayer" unique_id=1358384024]
 process_mode = 3
@@ -34,26 +39,30 @@ alignment = 1
 [node name="resume" type="Button" parent="centercontainer/menu buttons" unique_id=1908862435]
 custom_minimum_size = Vector2(400, 160)
 layout_mode = 2
-theme_override_font_sizes/font_size = 70
+theme_override_fonts/font = ExtResource("2_acx1n")
+theme_override_font_sizes/font_size = 110
 text = "RESUME"
 
 [node name="new game" type="Button" parent="centercontainer/menu buttons" unique_id=1191269827]
 custom_minimum_size = Vector2(400, 160)
 layout_mode = 2
-theme_override_font_sizes/font_size = 70
+theme_override_fonts/font = ExtResource("2_acx1n")
+theme_override_font_sizes/font_size = 110
 text = "NEW GAME"
 
 [node name="exit" type="Button" parent="centercontainer/menu buttons" unique_id=1209511454]
 custom_minimum_size = Vector2(400, 160)
 layout_mode = 2
-theme_override_font_sizes/font_size = 70
+theme_override_fonts/font = ExtResource("2_acx1n")
+theme_override_font_sizes/font_size = 110
 text = "EXIT"
 
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="." unique_id=258268512]
 oversampling_override = 1.0
 title = "EXIT"
 initial_position = 2
-size = Vector2i(370, 170)
+size = Vector2i(550, 170)
+theme = SubResource("Theme_vc5x1")
 ok_button_text = "...Yes"
 dialog_text = "...are you sure to close Yard of Despair ?"
 cancel_button_text = "No :)"

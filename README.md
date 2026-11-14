@@ -290,6 +290,13 @@ I used Godot engine to create the game and used languages like GDScript, Godot
 Resource and Markdown for writing the readme on VSCode. I also used Lapse to record
 my drawings.
 
+# Font
+
+I used "Block Craft Medium" for my texts and numbers in the game. This is a free-to-use
+font that can be used also for my personal project that will be destined to a non-profit
+organization(Hack Club). The font can be downloaded for personal use on:
+https://www.1001fonts.com/block-craft-font.html
+
 # !!warning!!
 
 This game is still in development. It is NOT the finished product.

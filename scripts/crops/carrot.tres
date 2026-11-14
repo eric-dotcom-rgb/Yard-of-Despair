@@ -7,8 +7,8 @@
 
 [resource]
 script = ExtResource("1_wkr61")
-seed_icon = ExtResource("3_r8g15")
-harvested_icon = ExtResource("1_rw7jt")
+seed_icon = ExtResource("1_rw7jt")
+harvested_icon = ExtResource("3_r8g15")
 shop_row_texture = ExtResource("4_r8g15")
 seed_price = 6
 metadata/_custom_type_script = "uid://b8sggujbk6vtl"

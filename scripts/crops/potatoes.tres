@@ -8,8 +8,8 @@
 [resource]
 script = ExtResource("1_0e5g8")
 crop_name = "potatoes"
-seed_icon = ExtResource("1_5iyk4")
-harvested_icon = ExtResource("1_eo0dr")
+seed_icon = ExtResource("1_eo0dr")
+harvested_icon = ExtResource("1_5iyk4")
 shop_row_texture = ExtResource("4_xhrst")
 crop_id = 5
 seed_price = 3
