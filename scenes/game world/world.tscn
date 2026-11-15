@@ -72,6 +72,9 @@
 [ext_resource type="Texture2D" uid="uid://kdlrg2thw2yu" path="res://assets/market window/close button unpressed 2.png" id="66_0c1d2"]
 [ext_resource type="Script" uid="uid://c3diyhqe5rclw" path="res://scripts/game world/market.gd" id="66_t2ojb"]
 [ext_resource type="Texture2D" uid="uid://cdeuckgt1i701" path="res://assets/market window/close button pressed 2.png" id="67_tvlpl"]
+[ext_resource type="Script" uid="uid://b2c0rc4w4du7y" path="res://scripts/game world/teleport.gd" id="73_hhcha"]
+[ext_resource type="Texture2D" uid="uid://deccrlbsaeun1" path="res://assets/blocks/elevated grass/grass elevated w flowers.png" id="74_o5ae5"]
+[ext_resource type="Texture2D" uid="uid://b0ndjcgvr54el" path="res://assets/blocks/elevated grass/grass elevated w flowers and rocks.png" id="75_qdg3k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5hl1e"]
 texture = ExtResource("3_xjx7w")
@@ -572,6 +575,32 @@ size = Vector2(40, 9)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d6ha7"]
 size = Vector2(10.5, 97)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3okhi"]
+size = Vector2(31, 31)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jarbw"]
+texture = ExtResource("74_o5ae5")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v3e8a"]
+texture = ExtResource("75_qdg3k")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h5tbp"]
+texture = ExtResource("15_crbsl")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_vxehi"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_jarbw")
+sources/1 = SubResource("TileSetAtlasSource_v3e8a")
+sources/2 = SubResource("TileSetAtlasSource_h5tbp")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1rqrj"]
+size = Vector2(8, 39)
+
 [node name="world" type="Node2D" unique_id=733376984]
 y_sort_enabled = true
 script = ExtResource("1_4o7gj")
@@ -787,6 +816,15 @@ offset_right = 744.0
 offset_bottom = 1004.0
 theme_override_constants/separation = 5
 
+[node name="portal transition" type="ColorRect" parent="hud" unique_id=168187544]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
 [node name="shop" type="Area2D" parent="." unique_id=192363175]
 script = ExtResource("62_u8x6f")
 
@@ -800,3 +838,33 @@ script = ExtResource("66_t2ojb")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="market" unique_id=1060999725]
 position = Vector2(1259.75, 343.5)
 shape = SubResource("RectangleShape2D_d6ha7")
+
+[node name="teleports" type="Node2D" parent="." unique_id=1388293172]
+
+[node name="door portal" type="Area2D" parent="teleports" unique_id=467142051 node_paths=PackedStringArray("destination")]
+script = ExtResource("73_hhcha")
+destination = NodePath("../spawn room")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="teleports/door portal" unique_id=1189228029]
+position = Vector2(819.5, 188.5)
+shape = SubResource("RectangleShape2D_3okhi")
+
+[node name="spawn door" type="Marker2D" parent="teleports" unique_id=1154669782]
+position = Vector2(860, 160)
+
+[node name="stanza" type="TileMapLayer" parent="teleports" unique_id=1973288938]
+position = Vector2(14, -6)
+tile_map_data = PackedByteArray("AAAMAHsAAgAAAAAAAAAMAHwAAgAAAAAAAAAMAH0AAAAAAAAAAAANAH0AAAAAAAAAAAAOAH0AAAAAAAAAAAAPAH0AAAAAAAAAAAAQAH0AAAAAAAAAAAARAH0AAAAAAAAAAAASAH0AAAAAAAAAAAATAH0AAAAAAAAAAAATAHwAAQAAAAAAAAAUAHwAAQAAAAAAAAAUAHsAAQAAAAAAAAATAHsAAQAAAAAAAAATAHoAAAAAAAAAAAASAHoAAAAAAAAAAAARAHoAAAAAAAAAAAAQAHoAAAAAAAAAAAAPAHoAAAAAAAAAAAAOAHoAAAAAAAAAAAAOAHsAAQAAAAAAAAANAHsAAQAAAAAAAAANAHwAAQAAAAAAAAAOAHwAAQAAAAAAAAAPAHwAAQAAAAAAAAAQAHwAAQAAAAAAAAARAHwAAQAAAAAAAAASAHwAAQAAAAAAAAARAHsAAQAAAAAAAAAQAHsAAQAAAAAAAAASAHsAAQAAAAAAAAAPAHsAAQAAAAAAAAANAHoAAAAAAAAAAAAMAHoAAAAAAAAAAAAUAHoAAAAAAAAAAAAVAHoAAAAAAAAAAAAVAHsAAAAAAAAAAAAVAHwAAAAAAAAAAAAVAH0AAAAAAAAAAAAUAH0AAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_vxehi")
+collision_visibility_mode = 2
+
+[node name="room portal" type="Area2D" parent="teleports" unique_id=1885746445 node_paths=PackedStringArray("destination")]
+script = ExtResource("73_hhcha")
+destination = NodePath("../spawn door")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="teleports/room portal" unique_id=561134803]
+position = Vector2(225, 1975.5)
+shape = SubResource("RectangleShape2D_1rqrj")
+
+[node name="spawn room" type="Marker2D" parent="teleports" unique_id=1061411381]
+position = Vector2(285, 1977)

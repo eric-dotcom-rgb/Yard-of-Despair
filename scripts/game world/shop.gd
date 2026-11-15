@@ -56,4 +56,3 @@ func _on_buy_pressed(crop: CropData) -> void:
 		hotbar.coins -= crop.seed_price
 		hotbar.add_seed(crop)
 		crop_bought_sound.play()
-	
