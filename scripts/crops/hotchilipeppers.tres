@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://b2s8six068abn" path="res://assets/inventory/hot chili peppers inventory.png" id="1_0wmnv"]
 [ext_resource type="Script" uid="uid://b8sggujbk6vtl" path="res://scripts/crops/CropData.gd" id="1_qqcsk"]
 [ext_resource type="Texture2D" uid="uid://dnmronqtf3pjw" path="res://assets/inventory/hot chili peppers seed inventory.png" id="1_v57l6"]
+[ext_resource type="Texture2D" uid="uid://de6i1v8r332vx" path="res://assets/market window/crop container for hot chili peppers.png" id="2_1tdmy"]
 [ext_resource type="Texture2D" uid="uid://c72jeei7m7rgp" path="res://assets/shop window/seed container for hot chili peppers.png" id="4_os0wu"]
 
 [resource]
@@ -10,8 +11,10 @@ script = ExtResource("1_qqcsk")
 crop_name = "hotchilipeppers"
 seed_icon = ExtResource("1_v57l6")
 harvested_icon = ExtResource("1_0wmnv")
-shop_row_texture = ExtResource("4_os0wu")
-crop_id = 3
-seed_price = 8
 growing_time = 7.0
+seed_price = 4
+sell_price = 5
+shop_row_texture = ExtResource("4_os0wu")
+market_row_texture = ExtResource("2_1tdmy")
+crop_id = 3
 metadata/_custom_type_script = "uid://b8sggujbk6vtl"

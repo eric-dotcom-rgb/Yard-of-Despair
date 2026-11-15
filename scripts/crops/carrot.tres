@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://vjar5ldlp7hd" path="res://assets/inventory/carrot seed inventory.png" id="1_rw7jt"]
 [ext_resource type="Script" uid="uid://b8sggujbk6vtl" path="res://scripts/crops/CropData.gd" id="1_wkr61"]
+[ext_resource type="Texture2D" uid="uid://ddq22da027ckb" path="res://assets/market window/crop container for carrots.png" id="2_ngbkt"]
 [ext_resource type="Texture2D" uid="uid://dnwwlfykxce0y" path="res://assets/inventory/carrot inventory.png" id="3_r8g15"]
 [ext_resource type="Texture2D" uid="uid://ccxht6shbyat1" path="res://assets/shop window/seed container for carrots.png" id="4_r8g15"]
 
@@ -9,6 +10,9 @@
 script = ExtResource("1_wkr61")
 seed_icon = ExtResource("1_rw7jt")
 harvested_icon = ExtResource("3_r8g15")
-shop_row_texture = ExtResource("4_r8g15")
+starting_seeds = 3
 seed_price = 6
+sell_price = 8
+shop_row_texture = ExtResource("4_r8g15")
+market_row_texture = ExtResource("2_ngbkt")
 metadata/_custom_type_script = "uid://b8sggujbk6vtl"

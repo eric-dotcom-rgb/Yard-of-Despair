@@ -14,7 +14,7 @@ var coins: int = 0
 func _ready() -> void:
 	for crop in slots_data:
 		if crop != null:
-			items[crop] = {"seeds": 5, "harvested": 0}
+			items[crop] = {"seeds": crop.starting_seeds, "harvested": 0}
 	update_ui()
 
 func update_ui() -> void:
@@ -64,3 +64,17 @@ func add_seed(crop: CropData) -> void:
 		items[crop] = {"seeds":0, "harvested":0}
 	items[crop]["seeds"] += 1
 	update_ui()
+
+func sell_one_crop(crop: CropData) -> void:
+	if items.has(crop) and items[crop]["harvested"] > 0:
+		items[crop]["harvested"] -= 1
+		coins += crop.sell_price
+		update_ui()
+		
+func sell_all_crop(crop: CropData) -> void:
+	if items.has(crop) and items[crop]["harvested"] > 0:
+		var amount: int = items[crop]["harvested"]
+		coins += amount * crop.sell_price
+		items[crop]["harvested"] = 0
+		update_ui()
+		

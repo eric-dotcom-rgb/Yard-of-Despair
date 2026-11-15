@@ -5,7 +5,7 @@ const SHOP_ROW_SCENE = preload("res://scenes/game world/shop crop rows.tscn")
 @onready var shop_side_borders: ColorRect = $"../hud/shop side borders"
 @onready var shop_window: TextureRect = $"../hud/shop side borders/shop window"
 @onready var xbutton: TextureButton = $"../hud/shop side borders/shop window/xbutton"
-@onready var rows_container: VBoxContainer = $"../hud/shop side borders/shop window/crop rows container"
+@onready var rows_container: VBoxContainer = $"../hud/shop side borders/shop window/seed rows container"
 @onready var hotbar = $"../hud/hotbar"
 
 func _ready() -> void:
@@ -47,8 +47,8 @@ func build_shop_rows() -> void:
 		row.get_node("seed icon").texture = crop.seed_icon
 		row.get_node("price label").text = str(crop.seed_price)
 		
-		var plus_btn: TextureButton= row.get_node("buy button")
-		plus_btn.pressed.connect(_on_buy_pressed.bind(crop))
+		var plus_button: TextureButton= row.get_node("buy button")
+		plus_button.pressed.connect(_on_buy_pressed.bind(crop))
 		
 func _on_buy_pressed(crop: CropData) -> void:
 	if hotbar.coins >= crop.seed_price:
