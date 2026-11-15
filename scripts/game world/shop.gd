@@ -7,6 +7,7 @@ const SHOP_ROW_SCENE = preload("res://scenes/game world/shop crop rows.tscn")
 @onready var xbutton: TextureButton = $"../hud/shop side borders/shop window/xbutton"
 @onready var rows_container: VBoxContainer = $"../hud/shop side borders/shop window/seed rows container"
 @onready var hotbar = $"../hud/hotbar"
+@onready var crop_bought_sound: AudioStreamPlayer = $"../hud/hotbar/crop bought sound"
 
 func _ready() -> void:
 	shop_side_borders.visible = false
@@ -54,6 +55,5 @@ func _on_buy_pressed(crop: CropData) -> void:
 	if hotbar.coins >= crop.seed_price:
 		hotbar.coins -= crop.seed_price
 		hotbar.add_seed(crop)
-	else:
-		print("non abbastanza monete")
+		crop_bought_sound.play()
 	

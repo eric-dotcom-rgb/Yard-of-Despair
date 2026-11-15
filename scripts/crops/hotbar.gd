@@ -10,6 +10,8 @@ var coins: int = 0
 @onready var seeds_num_label: Label = $"seeds num"
 @onready var crop_num_label: Label = $"crop num"
 @onready var coins_num_label: Label = $"coins num"
+@onready var coin_sound: AudioStreamPlayer = $"coins sound"
+@onready var harvest_sound: AudioStreamPlayer = $"harvest sound"
 
 func _ready() -> void:
 	for crop in slots_data:
@@ -57,6 +59,7 @@ func add_harvested(crop: CropData) -> void:
 	if not items.has(crop):
 		items[crop] = {"seeds": 0, "harvested": 0}
 	items[crop]["harvested"] += 1
+	harvest_sound.play()
 	update_ui()
 	
 func add_seed(crop: CropData) -> void:
@@ -69,6 +72,7 @@ func sell_one_crop(crop: CropData) -> void:
 	if items.has(crop) and items[crop]["harvested"] > 0:
 		items[crop]["harvested"] -= 1
 		coins += crop.sell_price
+		play_coin_sound()
 		update_ui()
 		
 func sell_all_crop(crop: CropData) -> void:
@@ -76,5 +80,9 @@ func sell_all_crop(crop: CropData) -> void:
 		var amount: int = items[crop]["harvested"]
 		coins += amount * crop.sell_price
 		items[crop]["harvested"] = 0
+		play_coin_sound()
 		update_ui()
 		
+func play_coin_sound() -> void:
+	if coin_sound:
+		coin_sound.play()
