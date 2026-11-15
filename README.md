@@ -56,7 +56,7 @@ Keys for changing crop on the hotbar:
 	1 -> carrot
 	2 -> hot chili pepper
 	3 -> onion
-	4 -> potatoe
+	4 -> potato
 	5 -> pumpkin
 
 # Characteristics - Code
@@ -138,6 +138,17 @@ Added a cropdata main file that store all the basic things for a crop like seed 
 the tiles of sprouts and the id of the tile with the crop. Then copied all of it for every crop in a .tres file with the 
 crop name for each one.
 
+Week 4:
+World:
+Added the shop and the market. The first one is for buying seed for planting, the second is for selling the crops for
+coins. Both are built using a row system, in which the rows are made all with the same functions and layout. Each background
+of the row has the crops name in it, so every crop has its different png. For this reason, I found to be more effective
+putting the option in the inspector of the .tres files of each crop so I could drop the png directly into that. I also added
+the initial seed number that the game gives at the start of the game. Now the counter for coins actually works, displaying
+how much revenue the crops gave you. In each page of both the market and shop are presented for the player the evaluations of
+the crops, so he can see how much coins he will receive, and cost of the seeds, so he can evaluate which type of seed to buy.
+I also added the teleport from the entrance of the house to a temporary remote island that will be the internals of thee house,
+such as rooms, kitchen and everything.
 # Characteristics - Animations
 
 Week 1:
@@ -156,6 +167,11 @@ Updated the farm animation. Made animations for frogs and all the animated tiles
 
 Week 3:
 Made the seed animation for player and the growing of the seed, if it counts as animation(but isnt).
+
+Week 4:
+Added sounds. WWhen the player walks, it makes a grassy type of sound, when it farms the land it does the noise from the hoe that
+goes into the ground, when the player harvests something it makes a pop sound just as like he picked up and put in the inventory
+the crop. When the player sells the crop, it makes a coin sound, and when it sells something it makes another similar noise.
 
 # Characteristics - Pixel Art
 
@@ -250,6 +266,39 @@ inventory and updated the player spritesheet and done some new hotbar images for
 	-potato inventory.png
 	-potato seed inventory.png
 
+Week 4:
+I have done a lot of assets this week, and I would have done more if there wasn't the 30% capped tim
+This week I've done the assets for the shop and market, including the main page, the various rows for the
+crops names, the buttons to sell, sell everything or to buy, the button to close the page. I also made some sounds
+using jsfxr. Also, I modified the house asset bcause the grass I made on the asset wasnt really useful in any sense
+and it would only create some problems with the portals, so I decided to remove it. Oh, and I put the font on all the
+numbers and texts and everything.
+	-shop.png
+	-house.png (modified)
+	-shop page.png
+	-seed container for carrots.png
+	-seed container for hot chili peppers.png
+	-seed container for onion.png
+	-seed container for potatoes.png
+	-seed container pumpkin.png
+	-coin.png
+	-close button unpressed.png
+	-close button pressed.png
+	-buy unpressed.png
+	-buy pressed.png
+	-market page.png
+	-crop container for carrots.png
+	-crop container for hot chili peppers.png
+	-crop container for onion.png
+	-crop container for potato.png
+	-crop container for pumpkin.png
+	-close button unpressed 2.png
+	-close button pressed 2.png
+	-sell unpressed.png
+	-sell pressed.png
+	-sell all unpressed.png
+	-sell all pressed.png
+
 # How to run - Requisites
 
 - Download the Godot Engine v4.x so it can run the script and run the game 
@@ -288,7 +337,8 @@ Slack: noobatcoding
 
 I used Godot engine to create the game and used languages like GDScript, Godot 
 Resource and Markdown for writing the readme on VSCode. I also used Lapse to record
-my drawings.
+my drawings. The sounds are made using the https://sfxr.me/ site in which you can create
+sounds from scratch, so I don't need to credit anybody!
 
 # Font
 

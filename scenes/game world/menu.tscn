@@ -2,10 +2,13 @@
 
 [ext_resource type="Script" uid="uid://bp54vrj0nsqmj" path="res://scripts/game world/menu.gd" id="1_6fj3x"]
 [ext_resource type="FontFile" uid="uid://d28dphh1v0i6o" path="res://assets/font/BlockCraft.otf" id="2_acx1n"]
+[ext_resource type="Script" uid="uid://drobsp5d6xeux" path="res://scripts/game world/tutorial.gd" id="3_jrpo4"]
 
 [sub_resource type="Theme" id="Theme_vc5x1"]
 default_font = ExtResource("2_acx1n")
 default_font_size = 27
+
+[sub_resource type="Theme" id="Theme_pyare"]
 
 [node name="menu" type="CanvasLayer" unique_id=1358384024]
 process_mode = 3
@@ -66,3 +69,84 @@ theme = SubResource("Theme_vc5x1")
 ok_button_text = "...Yes"
 dialog_text = "...are you sure to close Yard of Despair ?"
 cancel_button_text = "No :)"
+
+[node name="tutorial" type="ColorRect" parent="." unique_id=815466442]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.9098039)
+script = ExtResource("3_jrpo4")
+
+[node name="window" type="TextureRect" parent="tutorial" unique_id=1312430047]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -861.5
+offset_top = -281.0
+offset_right = 861.5
+offset_bottom = 281.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="tutorial/window" unique_id=1224453809]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -694.0
+offset_top = -257.5
+offset_right = 694.0
+offset_bottom = 257.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_pyare")
+theme_override_constants/separation = 2
+
+[node name="title" type="Label" parent="tutorial/window/VBoxContainer" unique_id=1252112141]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.15294118, 1)
+theme_override_fonts/font = ExtResource("2_acx1n")
+theme_override_font_sizes/font_size = 50
+text = "HOW TO PLAY --> YARD OF DESPAIR"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="how to play" type="Label" parent="tutorial/window/VBoxContainer" unique_id=2029477571]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_acx1n")
+theme_override_font_sizes/font_size = 30
+text = "
+Welcome to Yard of Despair !
+This is a brief tutorial on how to play this game.
+Keys for movement: up-W ; down-S; left-A; right-D
+Fuction keys:
+- F to farm the soil (so you can plant seed) and pick up you seed if you placed it wrong
+- Left-Click to plant the seed and harvest the grown crop
+- Numers from 1 to 5 to change type of seed to plant (Carrot, Hot chili pepper, Onion, Potato, Pumpkin)
+After you pick up the crops, you can sell them at the market and get coins. 
+These coins can be used to buy other seed to repeat the process.
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="dont show" type="CheckBox" parent="tutorial/window/VBoxContainer" unique_id=859534650]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3930849, 0.3930858, 0.39308503, 1)
+theme_override_fonts/font = ExtResource("2_acx1n")
+theme_override_font_sizes/font_size = 30
+text = "Don't show me this anymore"
+
+[node name="ok" type="Button" parent="tutorial/window/VBoxContainer" unique_id=752061609]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8745098, 0.8745098, 0.22745098, 1)
+theme_override_fonts/font = ExtResource("2_acx1n")
+theme_override_font_sizes/font_size = 40
+text = "Got it !"

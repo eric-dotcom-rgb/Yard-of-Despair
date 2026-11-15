@@ -7,6 +7,7 @@ extends CanvasLayer
 
 var is_paused: bool = false
 
+#controlla i segnali dei bottoni e della finestra
 func _ready() -> void:
 	resume.pressed.connect(_on_resume_pressed)
 	new_game.pressed.connect(_on_new_game_pressed)
@@ -14,20 +15,22 @@ func _ready() -> void:
 	confirmation_dialog.confirmed.connect(_on_exit_confirmed)
 	var config = ConfigFile.new()
 	
-	if config.load(SAVE_PATH) == OK:
+	if config.load(SAVE_PATH) == OK:   #controlla se sul pc ce un gioco salvato, senno non mostra tasto resume
 		resume.visible = true
 	else:
 		resume.visible = false
 
+#vede che tasti premi
 func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("esc"):
 			toggle_pause()
 
+#menu esc
 func toggle_pause() -> void:
 	is_paused = !is_paused
 	visible = is_paused
-	get_tree().paused = is_paused
+	get_tree().paused = is_paused    #congela gioco
 	
 	if is_paused:
 		resume.visible = true
@@ -35,32 +38,34 @@ func toggle_pause() -> void:
 	var hud = get_tree().current_scene.get_node_or_null("hud")
 	
 	if hud:
-		hud.visible = not is_paused
+		hud.visible = not is_paused          #nasconde hotbar
 		
 	if is_paused:
-		resume.visible = true
+		resume.visible = false
 
+#bottone resume
 func _on_resume_pressed() -> void:
 	resume.release_focus()
-	get_tree().paused = false
+	get_tree().paused = false     #scongela gioco
 	is_paused = false
-	visible = false
+	visible = false          
 	var hud = get_tree().current_scene.get_node_or_null("hud")
 	
 	if hud:
 		hud.visible = true
 		
-	if get_tree().current_scene.name !="world":
-		get_tree().change_scene_to_file("res://scenes/world.tscn")
-		await get_tree().tree_changed
+	if get_tree().current_scene.name !="world":   #controlla se sei in game
+		get_tree().change_scene_to_file("res://scenes/world.tscn")   #ricarica scena
+		await get_tree().tree_changed                                #cambia 2 frame e quindi carica il game
 		await get_tree().process_frame
 	load_game()
 
+#bottone new game
 func _on_new_game_pressed() -> void:
 	new_game.release_focus()
 	var dir = DirAccess.open("user://")
 	
-	if dir and dir.file_exists("save_game.cfg"):
+	if dir and dir.file_exists("save_game.cfg"):      #se esiste file, lo elimina
 		dir.remove("save_game.cfg")
 		
 	get_tree().paused = false
@@ -71,22 +76,25 @@ func _on_new_game_pressed() -> void:
 	if hud:
 		hud.visible = true
 		
-	if get_tree().current_scene.name == "world":
+	if get_tree().current_scene.name == "world":           #ricarica il gioco da zero e carica la scena
 		get_tree().reload_current_scene()
 	else:
 		get_tree().change_scene_to_file("res://scenes/world.tscn")
 
+#cliccando exit salva tutto
 func _on_exit_pressed() -> void:
 	if get_tree().current_scene.name == "world":
 		save_game()
 	confirmation_dialog.popup_centered()
-	
+
+#confermando exit chiude tutto
 func _on_exit_confirmed() -> void:
 	get_tree().quit()
 
-
+#SALVATAGGIO SU DISCO
 const SAVE_PATH = "user://save_game.cfg"
 
+#salva 4 gruppi di dati
 func save_game():
 	var config = ConfigFile.new()
 	var current_scene = get_tree().current_scene
@@ -132,9 +140,11 @@ func save_game():
 				inv_saved[crop.resource_path] = hotbar.items[crop]
 		config.set_value("inventory", "items", inv_saved)
 	
+	#scrive effettivamente i dati
 	config.save(SAVE_PATH)
 	print("game saved on user")
 
+#carica il game salvato, se ce n'è
 func load_game():
 	var config = ConfigFile.new()
 	
@@ -173,7 +183,7 @@ func load_game():
 			if crop_res:
 				current_scene.restore_crop(cell, crop_res, info["stage"])
 	
-	#inventario per intero(monete, semi, crop e slot attivo
+	#inventario per intero(monete, semi, crop e slot attivo)
 	var hotbar = current_scene.get_node_or_null("hud/hotbar")
 	
 	if hotbar:

@@ -1,11 +1,13 @@
 extends CharacterBody2D
 
+#macchina a stati finiti con 4 comportamenti
 enum State {
 	IDLE,
 	WALK,
 	FARM,
 	SEED
 }
+
 @export_category("Stats")
 @export var speed: int = 100
 @export var farm_speed: float = 1.5
@@ -14,28 +16,33 @@ var seed_speed: float = 2.7
 var state: State = State.IDLE
 var move_direction: Vector2 = Vector2(0,0)
 
+#collegano AnimationTree con il controller interno(ossia AnimationNodeStateMachine) in modo da riprodurre le animazioni
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var animation_playback: AnimationNodeStateMachinePlayback = $AnimationTree["parameters/playback"]
 
+
 func _ready() -> void:           #cosi nel gioco il Tree rimane sempre acceso anche se sull editor lo spegniamo
 	animation_tree.set_active(true)
-	
+
+#intercetta i comandi non assorbiti dall'interfaccia
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.keycode == KEY_F and event.pressed and not event.echo:
 		farm()
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		pick_up()
 
+#permette al player di muoversi solo se non sta facendo animazioni
 func _physics_process(_delta: float) -> void:
 	if not state == State.FARM and not state ==State.SEED:
 		movement_loop()
 
+#movimento e dirazione player
 func movement_loop() -> void:
 	move_direction.x = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
 	move_direction.y = int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up"))
-	var motion:Vector2 = move_direction.normalized() * speed
+	var motion:Vector2 = move_direction.normalized() * speed     #normalized fa si che in diagonale è un po più lento
 	set_velocity(motion)
-	move_and_slide()
+	move_and_slide()   #muove il player
 	
 	#per flipparlo destra/sinistra
 	if state == State.IDLE or State.WALK:
@@ -51,6 +58,7 @@ func movement_loop() -> void:
 		state = State.IDLE
 		update_animation( )
 
+#fa transitare l'AnimationTree verrso lo stato attuale
 func update_animation() -> void:
 	match state:
 		State.IDLE:
@@ -61,19 +69,20 @@ func update_animation() -> void:
 			animation_playback.travel("farm")
 		State.SEED:
 			animation_playback.travel("seed")
-			
+
+#calcolo della cella bersaglio
 func _get_target_grid() -> Array:
-	var mouse_pos: Vector2 = get_global_mouse_position()
+	var mouse_pos: Vector2 = get_global_mouse_position()           #direzione del player rispetto al mouse
 	var dir: Vector2 = (mouse_pos - global_position).normalized()
 	var dirt_layer = get_parent().get_node("tiles/dirt")
-	var hit_pos = global_position + (dir * 16)
-	return [dirt_layer.local_to_map(hit_pos), dir, dirt_layer]
+	var hit_pos = global_position + (dir * 16)            #punto distante 16px
+	return [dirt_layer.local_to_map(hit_pos), dir, dirt_layer]      #converte coordinate in cella tilemap
 
-#zappare
+#zappare/estirpare
 func farm() -> void:
-	if state == State.FARM or state == State.SEED:
+	if state == State.FARM or state == State.SEED:         #se lo stato attuale è altro, esce
 		return
-	var target_info = _get_target_grid()
+	var target_info = _get_target_grid()             #info della cella bersaglio
 	var target_grid: Vector2i = target_info[0]
 	var farm_dir: Vector2 = target_info[1]
 	var dirt_layer: TileMapLayer = target_info[2]
@@ -107,14 +116,15 @@ func farm() -> void:
 		if world_node.has_method("change_tile"):
 			world_node.change_tile(target_grid, 2, Vector2i(0,0))
 		
-	await get_tree().create_timer(farm_speed).timeout
+	await get_tree().create_timer(farm_speed).timeout        #timer con secondi di farm speed
 	state = State.IDLE
 
+#semina/raccolta
 func pick_up() -> void:
-	if state == State.FARM or state == State.SEED:
+	if state == State.FARM or state == State.SEED:         #se lo stato corrente è altro, esce
 		return
 		
-	var target_info = _get_target_grid()
+	var target_info = _get_target_grid()             #info target tile 
 	var target_grid: Vector2i = target_info[0]
 	var seed_dir: Vector2 = target_info[1]
 	var dirt_layer: TileMapLayer = target_info[2]
@@ -130,18 +140,18 @@ func pick_up() -> void:
 		hotbar.add_harvested(harvested)
 		return
 	
-	#controlla cosa ce sul terreno e se è gia farmato cosi può piantare
+	#controlla cosa ce sul terreno e se è gia farmato cosi può piantare, chiedendo a hotbar se ha un seme nello slot attivo
 	if current_dirt_source == 2 and not world_node.active_crops.has(target_grid):
 		var selected_crop = hotbar.get_selected_crop()
 		if selected_crop != null:
 			state = State.SEED
-			velocity = Vector2.ZERO
-			$Sprite2D.flip_h = seed_dir.x < 0.01 and abs(seed_dir.x) >= abs(seed_dir.y)
+			velocity = Vector2.ZERO       #lo blocca
+			$Sprite2D.flip_h = seed_dir.x < 0.01 and abs(seed_dir.x) >= abs(seed_dir.y)    #direzione
 			animation_tree.set("parameters/seed/BlendSpace2D/blend_position", seed_dir)
 			update_animation()
 			
-			world_node.plant_crop(target_grid, selected_crop)
-			hotbar.consume_seed(selected_crop)
+			world_node.plant_crop(target_grid, selected_crop)      #pianta seme
+			hotbar.consume_seed(selected_crop)           #toglie dalla hotbar 1
 			
-			await get_tree().create_timer(seed_speed).timeout
+			await get_tree().create_timer(seed_speed).timeout      #timer del seed
 			state = State.IDLE
