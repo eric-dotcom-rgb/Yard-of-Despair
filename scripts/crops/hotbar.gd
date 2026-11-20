@@ -4,6 +4,7 @@ extends TextureRect
 var selected_index: int = 0         #slot selezionato
 var items: Dictionary = {}          #magazzino della memoria in cui son salvati i parametri degli ortaggi
 var coins: int = 0          #memorizza le monete
+var emeralds: int = 0      #smeraldi per uscire
 
 #variabili collegate a hotbar
 @onready var crop_icon: TextureRect = $"crop icon"
@@ -75,6 +76,17 @@ func add_seed(crop: CropData) -> void:
 	if not items.has(crop):
 		items[crop] = {"seeds":0, "harvested":0}
 	items[crop]["seeds"] += 1
+	update_ui()
+
+#aggiunge qtità semi
+func add_seed_amount(crop:CropData, amount: int) -> void:
+	if crop == null or amount <= 0:
+		return
+	
+	if not items.has(crop):
+		items[crop] = {"seeds": 0, "harvested": 0}
+	
+	items[crop]["seeds"] += amount
 	update_ui()
 
 #ti vende 1 ortaggio, se lo hai, e ti da le monete, facendo il suono, aggiornando la grafica.

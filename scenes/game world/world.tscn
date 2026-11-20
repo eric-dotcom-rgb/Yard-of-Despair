@@ -61,8 +61,11 @@
 [ext_resource type="Texture2D" uid="uid://kbjjlcutqk6a" path="res://assets/blocks/houses/market.png" id="48_o5ae5"]
 [ext_resource type="Texture2D" uid="uid://cgrhl83i6oahq" path="res://assets/inventory/inventory.png" id="48_qgw2r"]
 [ext_resource type="Script" uid="uid://bcwc2hch4p1gv" path="res://scripts/crops/hotbar.gd" id="49_htetq"]
+[ext_resource type="Script" uid="uid://crbgdpx0xdvxa" path="res://scripts/farmer/farmer.gd" id="56_gaa0h"]
 [ext_resource type="Resource" uid="uid://c6ajoc0mxv0mm" path="res://scripts/crops/hotchilipeppers.tres" id="56_vdpth"]
+[ext_resource type="Script" uid="uid://b1dxxp35iotkr" path="res://scripts/quests/QuestData.gd" id="57_7byp7"]
 [ext_resource type="Resource" uid="uid://d4dnvb0e7k3w5" path="res://scripts/crops/onion.tres" id="57_crbsl"]
+[ext_resource type="Resource" uid="uid://bd35gww2px4t4" path="res://scripts/quests/mission1.tres" id="58_d15uq"]
 [ext_resource type="Resource" uid="uid://cq1boynjpkr06" path="res://scripts/crops/potatoes.tres" id="58_vdpth"]
 [ext_resource type="Resource" uid="uid://xj26dent056j" path="res://scripts/crops/pumpkin.tres" id="59_q3yj0"]
 [ext_resource type="FontFile" uid="uid://d28dphh1v0i6o" path="res://assets/font/BlockCraft.otf" id="61_7k31n"]
@@ -80,6 +83,8 @@
 [ext_resource type="Script" uid="uid://b2c0rc4w4du7y" path="res://scripts/game world/teleport.gd" id="73_hhcha"]
 [ext_resource type="Texture2D" uid="uid://deccrlbsaeun1" path="res://assets/blocks/elevated grass/grass elevated w flowers.png" id="74_o5ae5"]
 [ext_resource type="Texture2D" uid="uid://b0ndjcgvr54el" path="res://assets/blocks/elevated grass/grass elevated w flowers and rocks.png" id="75_qdg3k"]
+[ext_resource type="Texture2D" uid="uid://c6wgcx2k2qfq" path="res://assets/dialogue/container.png" id="77_eexqo"]
+[ext_resource type="Texture2D" uid="uid://cdbtsgl8vara4" path="res://assets/dialogue/button.png" id="78_rg8x6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_58xmm"]
 texture = ExtResource("3_h5tbp")
@@ -686,6 +691,9 @@ texture = ExtResource("40_58xmm")
 [sub_resource type="TileSet" id="TileSet_4v6ov"]
 sources/0 = SubResource("TileSetAtlasSource_mvg0v")
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_76q2l"]
+radius = 19.026299
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_76q2l"]
 size = Vector2(40, 9)
 
@@ -773,6 +781,22 @@ position = Vector2(526, 318)
 
 [node name="farmer 1" parent="." unique_id=1199821878 instance=ExtResource("42_d15uq")]
 position = Vector2(466, 122)
+
+[node name="Area2D" type="Area2D" parent="farmer 1" unique_id=1640522183]
+script = ExtResource("56_gaa0h")
+quests = Array[ExtResource("57_7byp7")]([ExtResource("58_d15uq")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="farmer 1/Area2D" unique_id=177241018]
+shape = SubResource("CircleShape2D_76q2l")
+
+[node name="Label" type="Label" parent="farmer 1" unique_id=1010163649]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.99999994, 0.04050345, 0.022352884, 1)
+theme_override_fonts/font = ExtResource("61_7k31n")
+text = "!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="frog Terra" parent="." unique_id=844263027 instance=ExtResource("43_1n6mn")]
 position = Vector2(204, 547)
@@ -937,10 +961,70 @@ theme_override_constants/separation = 5
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 140.0
+offset_top = 49.0
+offset_right = 140.0
+offset_bottom = 49.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
+
+[node name="Mission" type="TextureRect" parent="hud" unique_id=2003344675]
+offset_left = 629.0
+offset_top = 745.0
+offset_right = 1337.0
+offset_bottom = 1039.0
+texture = ExtResource("77_eexqo")
+stretch_mode = 4
+
+[node name="Title" type="Label" parent="hud/Mission" unique_id=1691630412]
+layout_mode = 1
+offset_left = 44.0
+offset_top = 29.0
+offset_right = 424.0
+offset_bottom = 83.0
+theme_override_fonts/font = ExtResource("61_7k31n")
+theme_override_font_sizes/font_size = 35
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MissionText" type="Label" parent="hud/Mission" unique_id=1141380197]
+layout_mode = 1
+offset_left = 57.0
+offset_top = 110.0
+offset_right = 554.0
+offset_bottom = 251.0
+theme_override_fonts/font = ExtResource("61_7k31n")
+theme_override_font_sizes/font_size = 33
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ActionButton" type="TextureButton" parent="hud/Mission" unique_id=206945333]
+layout_mode = 1
+offset_left = 489.0
+offset_top = 26.0
+offset_right = 683.0
+offset_bottom = 87.0
+texture_normal = ExtResource("78_rg8x6")
+texture_pressed = ExtResource("78_rg8x6")
+texture_hover = ExtResource("78_rg8x6")
+texture_disabled = ExtResource("78_rg8x6")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="hud/Mission/ActionButton" unique_id=941654566]
+layout_mode = 1
+offset_left = 5.0
+offset_top = 3.0
+offset_right = 190.0
+offset_bottom = 54.0
+theme_override_fonts/font = ExtResource("61_7k31n")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="shop" type="Area2D" parent="." unique_id=192363175]
 script = ExtResource("62_u8x6f")
