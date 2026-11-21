@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dqljcfph48jkx"]
 
-[ext_resource type="Script" uid="uid://bp54vrj0nsqmj" path="res://scripts/game world/menu.gd" id="1_6fj3x"]
+[ext_resource type="Script" uid="uid://bp54vrj0nsqmj" path="res://scripts/game world/menu and save.gd" id="1_6fj3x"]
 [ext_resource type="FontFile" uid="uid://d28dphh1v0i6o" path="res://assets/font/BlockCraft.otf" id="2_acx1n"]
 [ext_resource type="Script" uid="uid://drobsp5d6xeux" path="res://scripts/game world/tutorial.gd" id="3_jrpo4"]
 
@@ -131,6 +131,7 @@ Fuction keys:
 - F to farm the soil (so you can plant seed) and pick up you seed if you placed it wrong
 - Left-Click to plant the seed and harvest the grown crop
 - Numers from 1 to 5 to change type of seed to plant (Carrot, Hot chili pepper, Onion, Potato, Pumpkin)
+-E to interact with the farmer
 After you pick up the crops, you can sell them at the market and get coins. 
 These coins can be used to buy other seed to repeat the process.
 "

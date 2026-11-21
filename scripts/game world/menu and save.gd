@@ -39,9 +39,6 @@ func toggle_pause() -> void:
 	
 	if hud:
 		hud.visible = not is_paused          #nasconde hotbar
-		
-	if is_paused:
-		resume.visible = false
 
 #bottone resume
 func _on_resume_pressed() -> void:
@@ -90,6 +87,7 @@ func _on_exit_pressed() -> void:
 #confermando exit chiude tutto
 func _on_exit_confirmed() -> void:
 	get_tree().quit()
+	
 
 #SALVATAGGIO SU DISCO
 const SAVE_PATH = "user://save_game.cfg"
@@ -139,6 +137,14 @@ func save_game():
 			if crop != null and crop.resource_path != "":
 				inv_saved[crop.resource_path] = hotbar.items[crop]
 		config.set_value("inventory", "items", inv_saved)
+		config.set_value("inventory", "emeralds", hotbar.emeralds)
+	
+	#Progresso missioni salvato
+	var farmer_area = current_scene.get_node_or_null("farmer 1/Area2D")
+
+	if farmer_area:
+		config.set_value("quests", "mission_index", farmer_area.current_mission_index)
+		config.set_value("quests", "mission_accepted", farmer_area.mission_accepted)
 	
 	#scrive effettivamente i dati
 	config.save(SAVE_PATH)
@@ -158,7 +164,7 @@ func load_game():
 	
 	if player:
 		player.global_position = config.get_value("player", "position", player.global_position)
-		
+	
 	#tile modificati
 	var dirt_layer = get_tree().current_scene.get_node_or_null("tiles/dirt")
 	
@@ -189,6 +195,7 @@ func load_game():
 	if hotbar:
 		hotbar.coins = config.get_value("inventory", "coins", 0)
 		hotbar.selected_index = config.get_value("inventory", "selected_index", 0)
+		hotbar.emeralds = config.get_value("inventory", "emeralds", 0)
 		
 		var inv_saved = config.get_value("inventory", "items", {})
 		for crop_path in inv_saved:
@@ -196,5 +203,12 @@ func load_game():
 			if crop_res:
 				hotbar.items[crop_res] = inv_saved[crop_path]
 		hotbar.update_ui()
+	
+	#Progresso missioni su load
+	var farmer_area = current_scene.get_node_or_null("farmer 1/Area2D")
+	
+	if farmer_area:
+		farmer_area.current_mission_index = config.get_value("quests", "mission_index", 0)
+		farmer_area.mission_accepted = config.get_value("quests", "mission_accepted", false)
 		
 	print("game loaded!")
