@@ -14,6 +14,7 @@ var emeralds: int = 0      #smeraldi per uscire
 @onready var coins_num_label: Label = $"coins num"
 @onready var coin_sound: AudioStreamPlayer = $"coins sound"
 @onready var harvest_sound: AudioStreamPlayer = $"harvest sound"
+@onready var emeralds_num: Label = $"../emeralds/emeralds num"
 
 #all'inizio del gioco, scorre nel file di salvataggio per riempire il dizionario
 func _ready() -> void:
@@ -25,6 +26,7 @@ func _ready() -> void:
 #sincronizza grafica con dati in memoria
 func update_ui() -> void:
 	coins_num_label.text = str(coins)              #aggiorna monete
+	emeralds_num.text = str(emeralds)       #aggiorna smeraldi
 	slot_num_label.text = str(selected_index + 1)    #aggiorna slot
 	
 	#se lo slot contiene qcosa, lo recupera
