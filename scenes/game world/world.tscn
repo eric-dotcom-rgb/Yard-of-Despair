@@ -86,7 +86,7 @@
 [ext_resource type="Texture2D" uid="uid://b0ndjcgvr54el" path="res://assets/blocks/elevated grass/grass elevated w flowers and rocks.png" id="75_qdg3k"]
 [ext_resource type="Texture2D" uid="uid://c6wgcx2k2qfq" path="res://assets/dialogue/container.png" id="77_eexqo"]
 [ext_resource type="Texture2D" uid="uid://cdbtsgl8vara4" path="res://assets/dialogue/button.png" id="78_rg8x6"]
-[ext_resource type="Texture2D" path="res://assets/emeralds/Sprite-0001.png" id="81_d15uq"]
+[ext_resource type="Texture2D" uid="uid://cv8gfmvvjwdnl" path="res://assets/emeralds/emeralds container.png" id="82_1n6mn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_58xmm"]
 texture = ExtResource("3_h5tbp")
@@ -1147,7 +1147,7 @@ offset_right = -12.0
 offset_bottom = -12.0
 grow_horizontal = 0
 grow_vertical = 0
-texture = ExtResource("81_d15uq")
+texture = ExtResource("82_1n6mn")
 stretch_mode = 4
 
 [node name="emeralds num" type="Label" parent="hud/emeralds" unique_id=1977964295]
