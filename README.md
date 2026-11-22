@@ -58,6 +58,10 @@ Keys for changing crop on the hotbar:
 	3 -> onion
 	4 -> potato
 	5 -> pumpkin
+Key for interacting:
+	E: interact with farmer
+		"!" color red -> mission is avaiable
+		"!" color yellow -> mission is comleted and prize is avaiable
 
 # Characteristics - Code
 
@@ -149,6 +153,17 @@ how much revenue the crops gave you. In each page of both the market and shop ar
 the crops, so he can see how much coins he will receive, and cost of the seeds, so he can evaluate which type of seed to buy.
 I also added the teleport from the entrance of the house to a temporary remote island that will be the internals of thee house,
 such as rooms, kitchen and everything.
+
+Week 5:
+World:
+Added the gem store where in the future there will be a screeen just like the market and shop ones, but for buying the emeralds.
+I added the function for the farmer to give the mission and to give rewards for completing the missions. It also has a "!" on his
+head with an animation written in code that makes it sorta jump so the player knows either if it has a mission (red !) or has a
+reward to ask to the farmer. Oh, and the farmer now got a name: George! There's still bugs like it doesn't give out still the
+prize and the starting seeds I didn't change them so that the farmer actually gives them to you. All things I'm going to sort out
+next week bc I'm short of free hours to code. I also added an emerald counter on the HUD so that the player knows how much is left
+before he can free himself from Despair!
+
 # Characteristics - Animations
 
 Week 1:
@@ -172,6 +187,9 @@ Week 4:
 Added sounds. WWhen the player walks, it makes a grassy type of sound, when it farms the land it does the noise from the hoe that
 goes into the ground, when the player harvests something it makes a pop sound just as like he picked up and put in the inventory
 the crop. When the player sells the crop, it makes a coin sound, and when it sells something it makes another similar noise.
+
+Week 5:
+Done animated tiles for the tile in theme for this weeks theme posted on announcements-terra on Slack.
 
 # Characteristics - Pixel Art
 
@@ -299,6 +317,23 @@ numbers and texts and everything.
 	-sell all unpressed.png
 	-sell all pressed.png
 
+Week 5:
+Done the market and gems store asset that goes in the map, done the mountain tile for this weeks theme and started doing
+the row that goes in the page that will pop up for the gems store. Also done the counter for emeralds. And the containers
+for the missions and the button for accepting and get the prize.
+	-market.png
+	-mountain tile 1 spritesheet.png
+	-mountain tile 2 spritesheet.png
+	-mountain tile 3 spritesheet.png
+	-mountain tile 4 spritesheet.png
+	-mountain w house.png (just to visualize final product)
+	-button.png
+	-container.png
+	-emeralds container.png
+	-gems store.png
+	-gems row.png (not finished)
+	-seed container pumpkin (edited bc there was a line coloured wrong)
+
 # How to run - Requisites
 
 - Download the Godot Engine v4.x so it can run the script and run the game 
@@ -314,8 +349,8 @@ Option 1: With game engine
 4. Enjoy the game!
 
 Option 2: Download the .exe
-1. Go to releases on Github
-2. Download the Yard of Despair.exe file
+1. Go to the latest release on the Github repo of the project (the one with the highest release number)
+2. Download the Yard of Despair vX.exe file
 3. Run it on your pc!
 
 !- it is a game in progress, so don't expect it to be perfect, neither complete 
