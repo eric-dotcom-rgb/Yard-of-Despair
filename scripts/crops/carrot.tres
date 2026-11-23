@@ -10,7 +10,6 @@
 script = ExtResource("1_wkr61")
 seed_icon = ExtResource("1_rw7jt")
 harvested_icon = ExtResource("3_r8g15")
-starting_seeds = 3
 seed_price = 6
 sell_price = 8
 shop_row_texture = ExtResource("4_r8g15")

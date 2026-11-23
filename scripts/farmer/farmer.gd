@@ -30,6 +30,19 @@ func text_jump_anim() -> void:
 	tween.tween_property(label, "position:y", start_y -5.0, 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween.tween_property(label, "position:y", start_y, 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
+#controlla se ha raccolto gli ortaggio richiesti
+func is_quest_completed(q: QuestData) -> bool:
+	for crop in q.required_crop:
+		var needed: int = q.required_crop[crop]
+		var owned: int = 0
+		
+		if hotbar.items.has(crop):
+			owned = hotbar.items[crop]["harvested"]
+		
+		if owned < needed:
+			return false
+	return true
+
 #funzione animazione punto esclamativo su farmer, che cambia colore
 func _process(_delta: float) -> void:
 	#si nasconde se finite missioni
@@ -45,12 +58,8 @@ func _process(_delta: float) -> void:
 	
 	#missione accettata, quindi se finita diventa giallo
 	var q: QuestData = quests[current_mission_index]
-	var current_amount: int = 0
 	
-	if hotbar.items.has(q.target_crop):
-		current_amount = hotbar.items[q.target_crop]["harvested"]
-	
-	if current_amount >= q.required_amount:
+	if is_quest_completed(q):
 		label.visible = true
 		label.modulate = Color.DARK_GOLDENROD
 	else:
@@ -59,8 +68,6 @@ func _process(_delta: float) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "player":
 		player_in_range = true
-		if label:
-			label.visible = true
 
 func _on_body_exited(body: Node2D) -> void:
 	if body.name == ("player"):
@@ -80,9 +87,7 @@ func open_text() -> void:
 	if current_mission_index >= quests.size():
 		title.text = "George"
 		text.text = "You completed the mission!"
-		
-		if button: 
-			button_label.text = "Close"
+		button_label.text = "Close"
 		return
 	
 	var q: QuestData = quests[current_mission_index]
@@ -93,12 +98,7 @@ func open_text() -> void:
 		button_label.text = "Accept"
 		return
 	
-	var current_amount: int = 0
-	
-	if hotbar.items.has(q.target_crop):
-		current_amount = hotbar.items[q.target_crop]["harvested"]
-	
-	if current_amount >= q.required_amount:
+	if is_quest_completed(q):
 		text.text = q.reward
 		button_label.text = "Get reward"
 	else:
@@ -114,23 +114,27 @@ func _on_button_pressed() -> void:
 	
 	if not mission_accepted:
 		mission_accepted = true
+		
+		for crop in q.given_seed:
+			var amount: int = q.given_seed[crop]
+			hotbar.add_seed_amount(crop, amount)
+		
 		mission.visible = false
 		return
 	
-	var current_amount: int = 0
-	
-	if hotbar.items.has(q.target_crop):
-		current_amount = hotbar.items[q.target_crop]["harvested"]
-	
-	if current_amount >= q.required_amount:
-		hotbar.items[q.target_crop]["harvested"] -= q.required_amount
+	if is_quest_completed(q):
+		for crop in q.required_crop:
+			var needed: int = q.required_crop[crop]
+			hotbar.items[crop]["harvested"] -= needed
+		
 		hotbar.coins += q.reward_coins
 		
 		if "emeralds" in hotbar and "reward_emeralds" in q:
 			hotbar.emeralds += q.reward_emeralds
 			
-		if hotbar.has_method("add_seeds_amount") and "reward_seed" in q:
-			hotbar.add_seeds_amount(q.target_crop, q.reward_seed)
+		for crop in q.reward_seed:
+				var amount: int = q.reward_seed[crop]
+				hotbar.add_seed_amount(crop, amount)
 		
 		hotbar.play_coin_sound()
 		hotbar.update_ui()
