@@ -86,7 +86,13 @@
 [ext_resource type="Texture2D" uid="uid://b0ndjcgvr54el" path="res://assets/blocks/elevated grass/grass elevated w flowers and rocks.png" id="75_qdg3k"]
 [ext_resource type="Texture2D" uid="uid://c6wgcx2k2qfq" path="res://assets/dialogue/container.png" id="77_eexqo"]
 [ext_resource type="Texture2D" uid="uid://cdbtsgl8vara4" path="res://assets/dialogue/button.png" id="78_rg8x6"]
+[ext_resource type="Texture2D" uid="uid://dl3q8tax4tarq" path="res://assets/gems store window/gems store page.png" id="80_uy2wc"]
+[ext_resource type="Texture2D" uid="uid://cwhq4luihgxds" path="res://assets/gems store window/close button unpressed.png" id="81_q0htt"]
 [ext_resource type="Texture2D" uid="uid://cv8gfmvvjwdnl" path="res://assets/emeralds/emeralds container.png" id="82_1n6mn"]
+[ext_resource type="Texture2D" uid="uid://dks2xgpy44e40" path="res://assets/gems store window/close button pressed.png" id="82_cokli"]
+[ext_resource type="Script" uid="uid://cb527u20gxp4d" path="res://scripts/game world/gems_store.gd" id="88_q0htt"]
+[ext_resource type="Script" uid="uid://sl0xb3vh1vr" path="res://scripts/gems/GemPackData.gd" id="89_cokli"]
+[ext_resource type="Resource" uid="uid://bulx7inbhicyu" path="res://scripts/gems/emeralds.tres" id="90_ynh5q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_58xmm"]
 texture = ExtResource("3_h5tbp")
@@ -776,6 +782,9 @@ size = Vector2(40, 9)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d6ha7"]
 size = Vector2(12, 26)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u5qn5"]
+size = Vector2(27, 11)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3okhi"]
 size = Vector2(31, 31)
 
@@ -801,9 +810,6 @@ sources/2 = SubResource("TileSetAtlasSource_h5tbp")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1rqrj"]
 size = Vector2(8, 39)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u5qn5"]
-size = Vector2(27, 11)
 
 [node name="world" type="Node2D" unique_id=733376984]
 y_sort_enabled = true
@@ -1041,7 +1047,6 @@ offset_bottom = 1004.0
 theme_override_constants/separation = 5
 
 [node name="gems store borders" type="ColorRect" parent="hud" unique_id=967778612]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1050,23 +1055,38 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.8901961)
 
 [node name="gems shop window" type="TextureRect" parent="hud/gems store borders" unique_id=683503885]
-layout_mode = 0
-offset_right = 244.0
-offset_bottom = 387.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.32604167
+anchor_top = 0.055555556
+anchor_right = 0.34270832
+anchor_bottom = 0.24259259
+offset_right = 699.0
+offset_bottom = 747.0
+texture = ExtResource("80_uy2wc")
+stretch_mode = 4
+metadata/_edit_use_anchors_ = true
 
 [node name="xbutton3" type="TextureButton" parent="hud/gems store borders/gems shop window" unique_id=33931272]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+offset_left = 648.0
+offset_top = 19.0
+offset_right = 710.0
+offset_bottom = 81.0
+texture_normal = ExtResource("81_q0htt")
+texture_pressed = ExtResource("82_cokli")
+texture_hover = ExtResource("81_q0htt")
+texture_disabled = ExtResource("81_q0htt")
+texture_focused = ExtResource("81_q0htt")
 stretch_mode = 4
 
 [node name="gems rows container" type="VBoxContainer" parent="hud/gems store borders/gems shop window" unique_id=792053847]
 custom_minimum_size = Vector2(680, 800)
-layout_mode = 0
-offset_left = 635.0
-offset_top = 195.0
-offset_right = 1315.0
-offset_bottom = 995.0
+layout_mode = 1
+offset_left = 27.0
+offset_top = 120.0
+offset_right = 707.0
+offset_bottom = 920.0
 theme_override_constants/separation = 5
 
 [node name="portal transition" type="ColorRect" parent="hud" unique_id=168187544]
@@ -1080,6 +1100,7 @@ mouse_filter = 2
 color = Color(0, 0, 0, 0)
 
 [node name="Mission" type="TextureRect" parent="hud" unique_id=2003344675]
+visible = false
 offset_left = 629.0
 offset_top = 745.0
 offset_right = 1337.0
@@ -1184,6 +1205,15 @@ script = ExtResource("66_t2ojb")
 position = Vector2(1257, 352)
 shape = SubResource("RectangleShape2D_d6ha7")
 
+[node name="gems store" type="Area2D" parent="." unique_id=1651576569]
+script = ExtResource("88_q0htt")
+gem_packs = Array[ExtResource("89_cokli")]([ExtResource("90_ynh5q")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="gems store" unique_id=845277132]
+z_index = 1
+position = Vector2(362, 122)
+shape = SubResource("RectangleShape2D_u5qn5")
+
 [node name="teleports" type="Node2D" parent="." unique_id=1388293172]
 
 [node name="door portal" type="Area2D" parent="teleports" unique_id=467142051 node_paths=PackedStringArray("destination")]
@@ -1213,10 +1243,3 @@ shape = SubResource("RectangleShape2D_1rqrj")
 
 [node name="spawn room" type="Marker2D" parent="teleports" unique_id=1061411381]
 position = Vector2(285, 1977)
-
-[node name="gems store" type="Area2D" parent="." unique_id=1651576569]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="gems store" unique_id=845277132]
-z_index = 1
-position = Vector2(362, 122)
-shape = SubResource("RectangleShape2D_u5qn5")

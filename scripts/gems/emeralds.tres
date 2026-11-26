@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="GemPackData" format=3 uid="uid://bulx7inbhicyu"]
+
+[ext_resource type="Texture2D" uid="uid://b42l820dabdv7" path="res://assets/gems store window/emeralds row.png" id="1_0x5sk"]
+[ext_resource type="Script" uid="uid://sl0xb3vh1vr" path="res://scripts/gems/GemPackData.gd" id="1_mtmgt"]
+
+[resource]
+script = ExtResource("1_mtmgt")
+row_texture = ExtResource("1_0x5sk")
+metadata/_custom_type_script = "uid://sl0xb3vh1vr"

@@ -10,8 +10,8 @@
 [node name="market row" type="TextureRect" unique_id=1037274783]
 custom_minimum_size = Vector2(680, 120)
 clip_contents = true
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 680.0
+offset_bottom = 120.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 texture = ExtResource("1_opi2g")
